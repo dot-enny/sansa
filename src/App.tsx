@@ -1,0 +1,42 @@
+import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import Nav from './components/Nav'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div className="app-root">
+      <header className="app-header">
+        <Nav />
+      </header>
+
+      <main>
+        {/* child routes render here via Outlet from createBrowserRouter */}
+        <Outlet />
+      </main>
+
+      <footer>
+        <div className="logos">
+          <a href="https://vite.dev" target="_blank">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
+          </a>
+          <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
+        <div className="card">
+          <button onClick={() => setCount((c) => c + 1)}>
+            count is {count}
+          </button>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
