@@ -1,38 +1,25 @@
-import { useState } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
-
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import Nav from './components/Nav'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <div className="app-root">
-      <header className="app-header">
-        <Nav />
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4" style={{ maxWidth: 1200 }}>
+          <Nav />
+        </div>
       </header>
 
-      <main>
-        {/* child routes render here via Outlet from createBrowserRouter */}
-        <Outlet />
+      <main className="flex-1">
+        <div className="container mx-auto px-4 py-8" style={{ maxWidth: 1200 }}>
+          <Outlet />
+        </div>
       </main>
 
-      <footer>
-        <div className="logos">
-          <a href="https://vite.dev" target="_blank">
-            <img src={viteLogo} className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
-        </div>
-        <div className="card">
-          <button onClick={() => setCount((c) => c + 1)}>
-            count is {count}
-          </button>
+      <footer className="bg-slate-50 py-6 mt-8">
+        <div className="container mx-auto px-4 text-sm text-slate-500" style={{ maxWidth: 1200 }}>
+          © {new Date().getFullYear()} Sansa — Multi-vendor demo
         </div>
       </footer>
     </div>

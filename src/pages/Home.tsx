@@ -1,44 +1,69 @@
-import { useEffect, useState } from 'react'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '/vite.svg'
-import '../App.css'
+import React, { useState } from "react";
+import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import CategoriesSidebar from "../components/organisms/CategoriesSidebar";
+import HeroBanner from "../components/organisms/HeroBanner";
+import ProductGrid from "../components/organisms/ProductGrid";
 
-export default function Home() {
-  const [count, setCount] = useState(() => {
-    try {
-      return Number(localStorage.getItem('sansa.count') || '0')
-    } catch {
-      return 0
-    }
-  })
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('sansa.count', String(count))
-    } catch {}
-  }, [count])
+const Home: React.FC = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <section>
-      <h1>Welcome to Sansa</h1>
+    <div className="container mx-auto  py-6" style={{ maxWidth: "1200px" }}>
+      <div className="flex gap-8">
+        {/* Mobile: menu button to open categories drawer */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open categories"
+            className="mb-4 inline-flex items-center gap-2 rounded bg-white px-3 py-2 text-sm shadow"
+          >
+            <HiOutlineMenu className="w-5 h-5" />
+            Categories
+          </button>
+        </div>
 
-      <div className="card">
-        <p>
-          <button onClick={() => setCount((c) => c + 1)}>count is {count}</button>
-        </p>
-        <p className="read-the-docs">The counter is persisted to localStorage.</p>
+        {/* Desktop sidebar */}
+        <div className="hidden md:block w-72">
+          <CategoriesSidebar />
+        </div>
+
+        {/* Mobile drawer (slide-over) */}
+        {mobileOpen && (
+          <div className="fixed inset-0 z-40 md:hidden">
+            <div
+              className="fixed inset-0 bg-black/40"
+              onClick={() => setMobileOpen(false)}
+            />
+            <aside className="fixed left-0 top-0 h-full w-72 bg-white p-4 shadow-lg overflow-auto">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Categories</h3>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                  className="p-2"
+                >
+                  <HiOutlineX className="w-6 h-6" />
+                </button>
+              </div>
+              <CategoriesSidebar />
+            </aside>
+          </div>
+        )}
+
+        <main className="flex-1">
+          <HeroBanner />
+
+          {/* Additional sections can be added below: vendor carousel, featured products, promotions */}
+          <section className="mt-8">
+            {/* Product grid (replaced carousel) */}
+            <div className="bg-transparent">
+              <ProductGrid />
+            </div>
+          </section>
+        </main>
       </div>
+    </div>
+  );
+};
 
-      <div className="logos">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p className="read-the-docs">This is the home page. Use the nav to move around.</p>
-    </section>
-  )
-}
+export default Home;
