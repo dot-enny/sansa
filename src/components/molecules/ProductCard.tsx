@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { HiOutlineHeart, HiHeart, HiOutlineShoppingCart, HiOutlineEye, HiStar } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
+import { HiOutlineHeart, HiHeart, HiOutlineEye, HiStar } from 'react-icons/hi'
+import { useWishlist } from '../../context/WishlistContext'
 
 export type Product = {
   id: string | number
@@ -22,12 +24,13 @@ type ProductCardProps = {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '' }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false)
+  const { has, toggle } = useWishlist()
+  const isWishlisted = has(product.id)
   const [isHovered, setIsHovered] = useState(false)
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsWishlisted(!isWishlisted)
+    toggle(product)
   }
   const handleQuickView = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -111,14 +114,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '
         {/* Vendor */}
         {product.vendor && (
           <div className="mb-2 flex items-center gap-1.5">
-            <div className="h-1.5 w-1.5 rounded-full bg-blue-600"></div>
-            <span className="text-xs font-medium text-blue-600">{product.vendor}</span>
+            <div className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+            <Link
+              to={`/vendor/${product.vendor?.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              className="text-xs font-medium text-blue-600 hover:underline"
+            >
+              {product.vendor}
+            </Link>
           </div>
         )}
 
         {/* Title */}
         <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
-          {product.title}
+          <Link to={`/product/${product.id}`} className="block hover:underline">
+            {product.title}
+          </Link>
         </h3>
 
         {/* Rating */}

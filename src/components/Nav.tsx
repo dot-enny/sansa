@@ -12,23 +12,24 @@ import {
   HiOutlineMenu,
   HiOutlineX,
 } from 'react-icons/hi'
+import { useCart } from '../context/CartContext'
+import { useWishlist } from '../context/WishlistContext'
 
 const categories = ['All', 'Electronics', 'Home', 'Beauty', 'Fashion', 'Toys', 'Grocery']
 
 export default function EcomHeader() {
   const [selectedCat, setSelectedCat] = useState('All')
-  const [catOpen, setCatOpen] = useState(false)
   const [shopOpen, setShopOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
-  const catRef = useRef<HTMLDivElement>(null)
   const shopRef = useRef<HTMLDivElement>(null)
+  const { totalItems } = useCart()
+  const { count: wishlistCount } = useWishlist()
 
   // Close popovers on outside click
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (catRef.current && !catRef.current.contains(e.target as Node)) setCatOpen(false)
       if (shopRef.current && !shopRef.current.contains(e.target as Node)) setShopOpen(false)
     }
     window.addEventListener('click', onClick)
@@ -110,11 +111,16 @@ export default function EcomHeader() {
 
         {/* Action Icons */}
         <nav className="ml-2 hidden items-center gap-4 xl:gap-6 lg:flex">
-          <Link to="/wishlist" className="group flex flex-col items-center gap-1">
+          <Link to="/wishlist" className="group relative flex flex-col items-center gap-1">
             <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
               <HiOutlineHeart className="text-xl" />
             </span>
             <span className="text-xs font-medium text-gray-600 transition group-hover:text-blue-600">Wishlist</span>
+            {wishlistCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-pink-600 px-1.5 text-xs font-bold text-white shadow-md">
+                {wishlistCount}
+              </span>
+            )}
           </Link>
           <Link to="/reorder" className="group flex flex-col items-center gap-1">
             <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
@@ -134,7 +140,7 @@ export default function EcomHeader() {
             </span>
             <span className="text-xs font-medium text-gray-600 transition group-hover:text-blue-600">Cart</span>
             <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-bold text-white shadow-md">
-              0
+              {totalItems}
             </span>
           </Link>
         </nav>
@@ -143,7 +149,7 @@ export default function EcomHeader() {
         <Link to="/cart" className="relative flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden">
           <HiOutlineShoppingCart className="text-2xl" />
           <span className="absolute right-0 top-0 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-bold text-white shadow-md">
-            0
+            {totalItems}
           </span>
         </Link>
       </div>
@@ -189,14 +195,14 @@ export default function EcomHeader() {
                 {shopOpen && (
                   <div className="absolute left-0 top-12 z-40 grid w-[560px] grid-cols-2 gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-xl">
                     {categories.map((c) => (
-                      <Link
-                        key={c}
-                        to={`/${c.toLowerCase()}`}
-                        className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
-                        onClick={() => setShopOpen(false)}
-                      >
-                        {c}
-                      </Link>
+                          <Link
+                            key={c}
+                            to={`/${c.toLowerCase()}`}
+                            className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+                            onClick={() => { setSelectedCat(c); setShopOpen(false) }}
+                          >
+                            {c}
+                          </Link>
                     ))}
                   </div>
                 )}
