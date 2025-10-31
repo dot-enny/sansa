@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { HiOutlineHeart, HiHeart, HiOutlineEye, HiStar } from 'react-icons/hi'
 import { useWishlist } from '../../context/WishlistContext'
 
@@ -27,19 +27,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '
   const { has, toggle } = useWishlist()
   const isWishlisted = has(product.id)
   const [isHovered, setIsHovered] = useState(false)
+  const navigate = useNavigate()
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     toggle(product)
   }
   const handleQuickView = (e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     // Quick view logic here
   }
 
   return (
     <div
-      className={`group relative flex flex-col overflow-hidden w-full rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:border-blue-200 ${className}`}
+      role="button"
+      tabIndex={0}
+      onClick={() => navigate(`/product/${product.id}`)}
+      onKeyDown={(e) => { if (e.key === 'Enter') navigate(`/product/${product.id}`) }}
+      className={`group relative flex flex-col overflow-hidden w-full rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer`}
       style={
         width
           ? { minWidth: typeof width === 'number' ? `${width}px` : width }
@@ -118,6 +125,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '
             <Link
               to={`/vendor/${product.vendor?.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
               className="text-xs font-medium text-blue-600 hover:underline"
+              onClick={(e) => e.stopPropagation()}
             >
               {product.vendor}
             </Link>
@@ -126,9 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '
 
         {/* Title */}
         <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
-          <Link to={`/product/${product.id}`} className="block hover:underline">
-            {product.title}
-          </Link>
+          <span className="block">{product.title}</span>
         </h3>
 
         {/* Rating */}
@@ -169,28 +175,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '
           )}
         </div>
 
-        {/* Add to Cart Button */}
-        {/* <button
-          onClick={handleAddToCart}
-          disabled={product.available === 0}
-          className={`mt-4 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold shadow-sm transition-all ${
-            product.available === 0
-              ? 'cursor-not-allowed bg-gray-100 text-gray-400'
-              : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:scale-95'
-          }`}
-        >
-          <HiOutlineShoppingCart className="text-lg" />
-          {product.available === 0 ? 'Out of Stock' : 'Add to Cart'}
-        </button> */}
+       
+      
       </div>
 
-      {/* Hover Effect Border */}
-      <div
-        className={`absolute inset-0 rounded-xl border-2 border-blue-500 transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ pointerEvents: 'none' }}
-      />
+      {/* removed hover border per design (no blue border on hover) */}
     </div>
   )
 }

@@ -7,13 +7,14 @@ import About from './pages/About'
 import NotFound from './pages/NotFound'
 import CategoryPage from './pages/CategoryPage'
 import VendorPage from './pages/VendorPage'
-import AdminDashboard from './pages/AdminDashboard'
+import AdminDashboard from './admin/pages/AdminDashboard'
 import ProductPage from './pages/products/ProductPage'
 import OrdersPage from './pages/OrdersPage'
 import OrderPage from './pages/orders/OrderPage'
 import AccountPage from './pages/AccountPage'
+import CheckoutPage from './pages/CheckoutPage'
 import VendorLayout from './components/layout/VendorLayout'
-import AdminLayout from './components/layout/AdminLayout'
+import AdminLayout from './admin/layout/AdminLayout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import CartPage from './pages/CartPage'
 import { CartProvider } from './context/CartContext'
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
     element: <App />,
       children: [
       { index: true, element: <Home /> },
+     { path: 'checkout', element: <CheckoutPage /> },
       { path: 'wishlist', element: <WishlistPage /> },
       { path: 'category/:slug', element: <CategoryPage /> },
       { path: 'account', element: <AccountPage /> },

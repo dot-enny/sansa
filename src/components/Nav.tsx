@@ -49,7 +49,7 @@ export default function EcomHeader() {
   }, [mobileMenuOpen])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/90 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/90 shadow-sm">
       {/* Top bar */}
       <div className="mx-auto flex w-full max-w-7xl justify-between items-center gap-2 px-4 py-3 lg:gap-4">
         {/* Mobile menu button */}
@@ -173,66 +173,8 @@ export default function EcomHeader() {
         </div>
       )}
 
-      {/* Bottom Navigation - Desktop */}
-      <div className="hidden border-t bg-gray-50/50 lg:block">
-        <div className="mx-auto w-full max-w-7xl px-4 py-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              {/* All Categories Dropdown */}
-              <div ref={shopRef} className="relative">
-                <button
-                  type="button"
-                  onClick={() => setShopOpen((v) => !v)}
-                  aria-haspopup="menu"
-                  aria-expanded={shopOpen}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 transition hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <HiOutlineViewGrid className="text-lg" />
-                  <span>All Categories</span>
-                  <HiOutlineChevronDown className={`transition-transform ${shopOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {shopOpen && (
-                  <div className="absolute left-0 top-12 z-40 grid w-[560px] grid-cols-2 gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-xl">
-                    {categories.map((c) => (
-                          <Link
-                            key={c}
-                            to={`/${c.toLowerCase()}`}
-                            className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
-                            onClick={() => { setSelectedCat(c); setShopOpen(false) }}
-                          >
-                            {c}
-                          </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Primary Navigation Links */}
-              <Link to="/" className="text-sm font-semibold text-gray-700 transition hover:text-blue-600">
-                Home
-              </Link>
-              <Link to="/electronics" className="text-sm font-semibold text-gray-700 transition hover:text-blue-600">
-                Electronics
-              </Link>
-              <Link to="/home-furniture" className="text-sm font-semibold text-gray-700 transition hover:text-blue-600">
-                Home & Furniture
-              </Link>
-              <Link to="/contact" className="text-sm font-semibold text-gray-700 transition hover:text-blue-600">
-                Contact
-              </Link>
-              <Link to="/blog" className="text-sm font-semibold text-gray-700 transition hover:text-blue-600">
-                Blog
-              </Link>
-            </div>
-
-            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-yellow-400 to-yellow-500 px-4 py-2 text-sm font-bold text-gray-900 shadow-md transition hover:shadow-lg hover:scale-105 active:scale-95">
-              Today's Deal
-              <HiOutlineChevronDown className="text-base" />
-            </button>
-          </div>
-        </div>
-      </div>
+   
+  
 
       {/* Mobile Menu (simplified) */}
       {mobileMenuOpen && (

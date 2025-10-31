@@ -1,193 +1,414 @@
 import React, { useState } from 'react'
-import ORDERS from '../data/orders'
-import { Link } from 'react-router-dom'
 
-const AccountPage: React.FC = () => {
-  const [tab, setTab] = useState<'profile' | 'orders' | 'addresses' | 'payments' | 'security' | 'notifications'>('profile')
+// Mock data
+const ORDERS = [
+  { id: 'ORD-2024-001', date: 'Oct 25, 2024', total: '₦45,000', status: 'Delivered' },
+  { id: 'ORD-2024-002', date: 'Oct 20, 2024', total: '₦28,500', status: 'In Transit' },
+  { id: 'ORD-2024-003', date: 'Oct 15, 2024', total: '₦62,000', status: 'Delivered' },
+]
 
-  // Mock profile state
-  const [profile, setProfile] = useState({ name: 'John Doe', email: 'john@example.com', phone: '' })
+const AccountPage = () => {
+  const [tab, setTab] = useState('profile')
+  const [profile, setProfile] = useState({ 
+    name: 'John Doe', 
+    email: 'john@example.com', 
+    phone: '+234 803 123 4567' 
+  })
 
   const [addresses, setAddresses] = useState([
-    { id: 'addr_1', label: 'Home', value: '123 Main St, City, Country' },
+    { id: 'addr_1', label: 'Home', value: '123 Main Street, Victoria Island', city: 'Lagos, Nigeria', isDefault: true },
+    { id: 'addr_2', label: 'Office', value: '456 Business Plaza, Lekki Phase 1', city: 'Lagos, Nigeria', isDefault: false },
   ])
 
   const [payments] = useState([
-    { id: 'pm_1', brand: 'Visa', last4: '4242', exp: '12/26' },
+    { id: 'pm_1', brand: 'Visa', last4: '4242', exp: '12/26', isDefault: true },
+    { id: 'pm_2', brand: 'Mastercard', last4: '5555', exp: '08/27', isDefault: false },
   ])
 
-  const saveProfile = (e: React.FormEvent) => {
+  const [notifications, setNotifications] = useState<Record<string, boolean>>({
+    orderUpdates: true,
+    marketingEmails: false,
+    securityAlerts: true,
+    promotions: true
+  })
+
+const saveProfile = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    // In a real app we'd send to API. For now we just keep local state.
-    alert('Profile saved (demo)')
-  }
+    alert('Profile saved successfully!')
+}
+
+  const menuItems = [
+    { id: 'profile', label: 'Profile', icon: '👤' },
+    { id: 'orders', label: 'Orders', icon: '📦' },
+    { id: 'addresses', label: 'Addresses', icon: '📍' },
+    { id: 'payments', label: 'Payment Methods', icon: '💳' },
+    { id: 'security', label: 'Security', icon: '🔒' },
+    { id: 'notifications', label: 'Notifications', icon: '🔔' },
+  ]
+
+type OrderStatus = 'Delivered' | 'In Transit' | 'Processing' | 'Cancelled' | string
+
+interface StatusColorMap {
+    [status: string]: string
+}
+
+const getStatusColor = (status: OrderStatus): string => {
+    const colors: StatusColorMap = {
+        'Delivered': 'bg-green-100 text-green-700 border-green-200',
+        'In Transit': 'bg-blue-100 text-blue-700 border-blue-200',
+        'Processing': 'bg-yellow-100 text-yellow-700 border-yellow-200',
+        'Cancelled': 'bg-red-100 text-red-700 border-red-200',
+    }
+    return colors[status] || 'bg-gray-100 text-gray-700 border-gray-200'
+}
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">My Account</h1>
-        <div className="text-sm text-gray-600">Manage your profile, orders and settings</div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">My Account</h1>
+              <p className="mt-1 text-sm text-gray-600">Manage your profile, orders and settings</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-lg">
+                {profile.name.split(' ').map(n => n[0]).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex gap-4">
-        <nav className="w-48 sticky top-20">
-          <ul className="space-y-2">
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='profile'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('profile')}>Profile</button>
-            </li>
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='orders'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('orders')}>Orders</button>
-            </li>
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='addresses'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('addresses')}>Addresses</button>
-            </li>
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='payments'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('payments')}>Payment methods</button>
-            </li>
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='security'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('security')}>Security</button>
-            </li>
-            <li>
-              <button className={`w-full text-left px-3 py-2 rounded ${tab==='notifications'? 'bg-blue-50 font-semibold':''}`} onClick={() => setTab('notifications')}>Notifications</button>
-            </li>
-          </ul>
-        </nav>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Sidebar Navigation (desktop) */}
+          <nav className="w-full md:w-64 flex-shrink-0">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden md:sticky md:top-20">
+              <ul className="py-2">
+                {menuItems.map((item) => (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => setTab(item.id)}
+                      className={`w-full text-left px-4 py-3 flex items-center gap-3 transition-colors ${
+                        tab === item.id
+                          ? 'bg-blue-50 text-blue-700 font-semibold border-l-4 border-blue-600'
+                          : 'text-gray-700 hover:bg-gray-50 border-l-4 border-transparent'
+                      }`}
+                    >
+                      <span className="text-xl">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
 
-        <div className="flex-1">
-          {tab === 'profile' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Profile</h2>
-              <form onSubmit={saveProfile} className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-700">Full name</label>
-                  <input value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} className="w-full rounded border px-3 py-2" />
+          {/* Content Area */}
+          <div className="flex-1">
+            {/* Mobile tab bar */}
+            <div className="md:hidden mb-4">
+              <div className="overflow-x-auto -mx-2">
+                <div className="inline-flex px-2 gap-2">
+                  {menuItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setTab(item.id)}
+                      aria-pressed={tab === item.id}
+                      className={`whitespace-nowrap px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                        tab === item.id
+                          ? 'bg-blue-600 text-white shadow'
+                          : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
+                      }`}
+                    >
+                      <span className="mr-2">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </button>
+                  ))}
                 </div>
-                <div>
-                  <label className="block text-sm text-gray-700">Email</label>
-                  <input value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })} className="w-full rounded border px-3 py-2" />
+              </div>
+            </div>
+            {tab === 'profile' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Profile Information</h2>
+                  <p className="mt-1 text-sm text-gray-600">Update your account details</p>
                 </div>
-                <div>
-                  <label className="block text-sm text-gray-700">Phone</label>
-                  <input value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} className="w-full rounded border px-3 py-2" />
-                </div>
-                <div>
-                  <button className="rounded bg-blue-600 text-white px-4 py-2">Save profile</button>
-                </div>
-              </form>
-            </section>
-          )}
 
-          {tab === 'orders' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Orders</h2>
-              {ORDERS.length === 0 ? (
-                <p className="text-sm text-gray-600">You have no orders yet.</p>
-              ) : (
-                <ul className="space-y-3">
-                  {ORDERS.map((o) => (
-                    <li key={o.id} className="flex items-center justify-between border rounded p-3">
-                      <div>
-                        <div className="font-medium">Order {o.id}</div>
-                        <div className="text-sm text-gray-500">{o.date} · {o.total}</div>
-                      </div>
-                      <div>
-                        <Link to={`/orders/${o.id}`} className="text-blue-600 hover:underline">View</Link>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full name</label>
+                    <input
+                      value={profile.name}
+                      onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+                    <input
+                      type="email"
+                      value={profile.email}
+                      onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone number</label>
+                    <input
+                      type="tel"
+                      value={profile.phone}
+                      onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="+234 803 123 4567"
+                    />
+                  </div>
+                  <div className="pt-4">
+                    <button onClick={saveProfile} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {tab === 'orders' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Order History</h2>
+                  <p className="mt-1 text-sm text-gray-600">View and track your orders</p>
+                </div>
+
+                {ORDERS.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                      <span className="text-4xl">📦</span>
+                    </div>
+                    <p className="text-gray-600 mb-4">You haven't placed any orders yet</p>
+                    <a href="/" className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                      Start Shopping
+                    </a>
+                  </div>
+                ) : (
+                  <ul className="space-y-4">
+                    {ORDERS.map((order) => (
+                      <li key={order.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="font-bold text-gray-900">{order.id}</h3>
+                              <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(order.status)}`}>
+                                {order.status}
+                              </span>
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              <span>{order.date}</span>
+                              <span className="mx-2">•</span>
+                              <span className="font-semibold text-gray-900">{order.total}</span>
+                            </div>
+                          </div>
+                          <a href={`/orders/${order.id}`} className="px-4 py-2 text-sm font-semibold text-blue-600 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors">
+                            View Details
+                          </a>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+
+            {tab === 'addresses' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6 flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Saved Addresses</h2>
+                    <p className="mt-1 text-sm text-gray-600">Manage your delivery addresses</p>
+                  </div>
+                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                    <span className="text-lg">+</span>
+                    Add Address
+                  </button>
+                </div>
+
+                <ul className="space-y-4">
+                  {addresses.map((addr) => (
+                    <li key={addr.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="font-semibold text-gray-900">{addr.label}</h3>
+                            {addr.isDefault && (
+                              <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">
+                                Default
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-700">{addr.value}</p>
+                          <p className="text-sm text-gray-600">{addr.city}</p>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            Edit
+                          </button>
+                          <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </li>
                   ))}
                 </ul>
-              )}
-            </section>
-          )}
-
-          {tab === 'addresses' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Addresses</h2>
-              <ul className="space-y-3">
-                {addresses.map((a) => (
-                  <li key={a.id} className="flex items-center justify-between border rounded p-3">
-                    <div>
-                      <div className="font-medium">{a.label}</div>
-                      <div className="text-sm text-gray-500">{a.value}</div>
-                    </div>
-                    <div>
-                      <button className="text-sm text-red-600 mr-2">Delete</button>
-                      <button className="text-sm text-blue-600">Edit</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4">
-                <button className="rounded bg-green-600 text-white px-3 py-2">Add address</button>
               </div>
-            </section>
-          )}
+            )}
 
-          {tab === 'payments' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Payment methods</h2>
-              <ul className="space-y-3">
-                {payments.map((p) => (
-                  <li key={p.id} className="flex items-center justify-between border rounded p-3">
-                    <div>
-                      <div className="font-medium">{p.brand} •••• {p.last4}</div>
-                      <div className="text-sm text-gray-500">Exp {p.exp}</div>
-                    </div>
-                    <div>
-                      <button className="text-sm text-red-600 mr-2">Remove</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <button className="rounded bg-green-600 text-white px-3 py-2">Add payment method</button>
+            {tab === 'payments' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6 flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Payment Methods</h2>
+                    <p className="mt-1 text-sm text-gray-600">Manage your saved payment methods</p>
+                  </div>
+                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                    <span className="text-lg">+</span>
+                    Add Card
+                  </button>
+                </div>
+
+                <ul className="space-y-4">
+                  {payments.map((pm) => (
+                    <li key={pm.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-14 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                            {pm.brand}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="font-semibold text-gray-900">
+                                {pm.brand} •••• {pm.last4}
+                              </h3>
+                              {pm.isDefault && (
+                                <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">
+                                  Default
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-600">Expires {pm.exp}</p>
+                          </div>
+                        </div>
+                        <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                          Remove
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </section>
-          )}
+            )}
 
-          {tab === 'security' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Security</h2>
-              <form onSubmit={(e) => { e.preventDefault(); alert('Password changed (demo)') }} className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-700">Current password</label>
-                  <input type="password" className="w-full rounded border px-3 py-2" />
+            {tab === 'security' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Security Settings</h2>
+                  <p className="mt-1 text-sm text-gray-600">Update your password and security preferences</p>
                 </div>
-                <div>
-                  <label className="block text-sm text-gray-700">New password</label>
-                  <input type="password" className="w-full rounded border px-3 py-2" />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700">Confirm new password</label>
-                  <input type="password" className="w-full rounded border px-3 py-2" />
-                </div>
-                <div>
-                  <button className="rounded bg-blue-600 text-white px-4 py-2">Change password</button>
-                </div>
-              </form>
-            </section>
-          )}
 
-          {tab === 'notifications' && (
-            <section className="rounded bg-white p-6 shadow">
-              <h2 className="text-lg font-semibold mb-4">Notifications</h2>
-              <div className="space-y-3">
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" defaultChecked />
-                  <span className="text-sm">Order updates</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" />
-                  <span className="text-sm">Marketing emails</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" defaultChecked />
-                  <span className="text-sm">Security alerts</span>
-                </label>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Current password</label>
+                    <input
+                      type="password"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="Enter current password"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">New password</label>
+                    <input
+                      type="password"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="Enter new password"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Confirm new password</label>
+                    <input
+                      type="password"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+                      placeholder="Confirm new password"
+                    />
+                  </div>
+                  
+                  <div className="pt-4 pb-6 border-t border-gray-200">
+                    <button onClick={() => alert('Password changed successfully!')} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                      Change Password
+                    </button>
+                  </div>
+
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0">
+                        <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="text-sm text-blue-800">
+                        <p className="font-semibold mb-1">Password Requirements</p>
+                        <ul className="space-y-1 text-blue-700">
+                          <li>• At least 8 characters long</li>
+                          <li>• Contains uppercase and lowercase letters</li>
+                          <li>• Includes at least one number</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </section>
-          )}
+            )}
+
+            {tab === 'notifications' && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Notification Preferences</h2>
+                  <p className="mt-1 text-sm text-gray-600">Choose what notifications you want to receive</p>
+                </div>
+
+                <div className="space-y-6">
+                  {[
+                    { key: 'orderUpdates', label: 'Order Updates', description: 'Get notified about your order status and delivery' },
+                    { key: 'promotions', label: 'Promotions & Deals', description: 'Receive special offers and discounts' },
+                    { key: 'marketingEmails', label: 'Marketing Emails', description: 'Product recommendations and news' },
+                    { key: 'securityAlerts', label: 'Security Alerts', description: 'Important account security notifications' },
+                  ].map((item) => (
+                    <label key={item.key} className="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={notifications[item.key]}
+                        onChange={(e) => setNotifications({ ...notifications, [item.key]: e.target.checked })}
+                        className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                      />
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900">{item.label}</div>
+                        <div className="text-sm text-gray-600 mt-0.5">{item.description}</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                    Save Preferences
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
