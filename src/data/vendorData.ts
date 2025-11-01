@@ -3,7 +3,7 @@
 // Replace with actual API calls in production
 
 export const vendorInfo = {
-  storeName: "Afro Vibes Store",
+  storeName: "Afro Vibes",
   vendorName: "Afro Vibes",
   trustScore: 750,
   maxTrustScore: 1000
