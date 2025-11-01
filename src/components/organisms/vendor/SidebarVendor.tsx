@@ -30,6 +30,7 @@ export default function SidebarVendor() {
 
   return (
     <div className="flex flex-col h-full bg-card">
+      <SansaBranding />
       <VendorBranding storeName={storeName} />
       <Navigation />
       <TrustScore trustScore={trustScore} maxTrustScore={maxTrustScore} />
@@ -37,9 +38,21 @@ export default function SidebarVendor() {
   );
 }
 
+const SansaBranding = () => {
+  return (
+    <div className="px-6 py-2 border- border-border">
+      <div className="flex items-center justify-cente">
+        <h2 className="text-sm font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          sansa
+        </h2>
+      </div>
+    </div>
+  )
+}
+
 const VendorBranding = ({ storeName }: { storeName: string }) => {
   return (
-    <div className="px-6 pt-14 pb-6">
+    <div className="px-6 pt-8 pb-6">
       <div className="flex flex-col items-center text-center gap-3">
         <div className="w-20 h-20 rounded-xl bg-linear-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
           <span className="text-2xl font-bold text-primary-foreground">
@@ -103,7 +116,7 @@ const TrustScore = ({ trustScore, maxTrustScore }: TrustScoreProps) => {
           <span className="text-2xl font-bold text-primary">{trustScore}</span>
           <span className="text-xs text-muted-foreground">of {maxTrustScore}</span>
         </div>
-        <div className="relative h-2.5 bg-background/50 rounded-full overflow-hidden">
+        <div className="shadow-sm relative h-2.5 bg-background/50 rounded-full overflow-hidden">
           <div
             className="absolute inset-y-0 left-0 bg-linear-to-r from-primary to-primary/70 rounded-full transition-all duration-500"
             style={{ width: `${scorePercentage}%` }}

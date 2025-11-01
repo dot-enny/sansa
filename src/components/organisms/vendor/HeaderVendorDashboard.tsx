@@ -1,20 +1,23 @@
 import React from 'react'
 import { vendorInfo } from '@/data/vendorData'
 
-const HeaderVendorDashboard: React.FC = () => {
+interface HeaderVendorDashboardProps {
+  showHeader: boolean
+}
+
+const HeaderVendorDashboard: React.FC<HeaderVendorDashboardProps> = ({ showHeader }) => {
   // Get vendor name from auth context or API in real implementation
   const { storeName } = vendorInfo
 
   return (
-    <header className="bg-card border-b border-border px-6 py-2.5 flex items-center justify-between shadow-sm sticky top-0 z-20">
-      <div className="flex items-center gap-3">
-        <h1 className="text-xl font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-          sansa
-        </h1>
-      </div>
+    <header 
+      className={`bg-card border- border-border px-6 py-3.5 flex items-center justify-end shadow-xs sticky top-0 z-20 transition-transform duration-300 ${
+        showHeader ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <div className="flex items-center gap-3">
         <div className="text-right">
-          <p className="text-xs font-medium text-foreground">{storeName}</p>
+          <p className="text- font-medium text-foreground">{storeName}</p>
         </div>
         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
           <span className="text-primary font-semibold text-xs">
