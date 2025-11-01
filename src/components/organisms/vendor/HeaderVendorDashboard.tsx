@@ -1,7 +1,7 @@
 import React from 'react'
 import { vendorInfo } from '@/data/vendorData'
 
-const NavVendor: React.FC = () => {
+const HeaderVendorDashboard: React.FC = () => {
   // Get vendor name from auth context or API in real implementation
   const { storeName } = vendorInfo
 
@@ -26,4 +26,4 @@ const NavVendor: React.FC = () => {
   )
 }
 
-export default NavVendor
+export default HeaderVendorDashboard

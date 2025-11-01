@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import NavVendor from '../organisms/vendor/NavVendor'
 import SidebarVendor from '../organisms/vendor/SidebarVendor'
+import HeaderVendorDashboard from '../organisms/vendor/HeaderVendorDashboard'
 
 const VendorLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
-     <NavVendor />
+     <HeaderVendorDashboard />
 
       {/* Content Area with Fixed Sidebar */}
       <div className="flex">
