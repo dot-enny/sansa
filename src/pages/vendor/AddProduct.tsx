@@ -14,6 +14,51 @@ import {
 } from '@/components/ui/select'
 
 const AddProduct: React.FC = () => {
+  // State for images
+  const [images, setImages] = useState<string[]>([]);
+  // State for tags
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState('');
+
+  // Dummy categories for select
+  const categories = [
+    'Electronics',
+    'Fashion',
+    'Home',
+    'Beauty',
+    'Sports',
+    'Other',
+  ];
+
+  // Handlers
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleCategoryChange = (value: string) => {
+    setFormData({ ...formData, category: value });
+  };
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files).slice(0, 10 - images.length);
+    const urls = files.map((file) => URL.createObjectURL(file));
+    setImages((prev) => [...prev, ...urls]);
+  };
+  const handleRemoveImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+  const handleAddTag = () => {
+    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
+      setTags([...tags, tagInput.trim()]);
+      setTagInput('');
+    }
+  };
+  const handleRemoveTag = (tag: string) => {
+    setTags(tags.filter((t) => t !== tag));
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Submit logic here
+  };
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -26,332 +71,339 @@ const AddProduct: React.FC = () => {
     weight: '',
   })
 
-  const [images, setImages] = useState<string[]>([])
-  const [tags, setTags] = useState<string[]>([])
-  const [tagInput, setTagInput] = useState('')
-
-  const categories = [
-    'Electronics',
-    'Fashion',
-    'Home & Garden',
-    'Sports & Outdoors',
-    'Beauty & Health',
-    'Books',
-    'Toys & Games',
-    'Automotive',
-    'Food & Grocery',
-    'Office Supplies',
-  ]
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleCategoryChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, category: value }))
-  }
-
-  const handleAddTag = () => {
-    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-      setTags([...tags, tagInput.trim()])
-      setTagInput('')
-    }
-  }
-
-  const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove))
-  }
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Placeholder for image upload logic
-    // In production, this would upload to a storage service
-    const files = e.target.files
-    if (files) {
-      const newImages = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      )
-      setImages([...images, ...newImages])
-    }
-  }
-
-  const handleRemoveImage = (index: number) => {
-    setImages(images.filter((_, i) => i !== index))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission - send to API
-    console.log('Form submitted:', { ...formData, images, tags })
-    // Show success message and redirect
-  }
-
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Header */}
-      <div className="mb-6">
-        <Link
-          to="/dashboard"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Dashboard
-        </Link>
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Add New Product
-        </h1>
-        <p className="text-muted-foreground">
-          Fill in the details below to list a new product in your store
-        </p>
+    <div className="relative max-w-6xl mx-auto pb-12">
+      {/* Enhanced ambient background layers for more depth */}
+      <div className="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
+        {/* Multiple layered gradients for depth */}
+        <div className="absolute top-[10%] right-[15%] w-[600px] h-[600px] bg-gradient-to-br from-primary/8 to-transparent rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute bottom-[15%] left-[10%] w-[500px] h-[500px] bg-gradient-to-tr from-secondary/6 to-transparent rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '9s', animationDelay: '2s' }} />
+        <div className="absolute top-[50%] left-[50%] w-[400px] h-[400px] bg-gradient-to-bl from-primary/4 to-transparent rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '15s', animationDelay: '5s' }} />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Basic Information */}
-        <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Basic Information
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name">Product Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="e.g., Premium Wireless Headphones"
-                required
-              />
-            </div>
+      {/* Header */}
+      <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="space-y-1">
+          <div className="flex items-center gap-3 mb-2">
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg px-2 py-1"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+              <span className="group-hover:underline underline-offset-4">Back to Dashboard</span>
+            </Link>
+          </div>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Add New Product</h1>
+          <p className="text-muted-foreground text-sm">
+            Create a new product listing for your store
+          </p>
+        </div>
+      </div>
 
-            <div>
-              <Label htmlFor="description">Description *</Label>
-              <Textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Describe your product, its features, and benefits..."
-                rows={5}
-                required
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="category">Category *</Label>
-                <Select
-                  value={formData.category}
-                  onValueChange={handleCategoryChange}
-                  required
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((cat) => (
-                      <SelectItem key={cat} value={cat}>
-                        {cat}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+      <form onSubmit={handleSubmit} className="space-y-12">
+        {/* Main grid: 2 columns on large screens */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-x-16 gap-y-12">
+          {/* Left Column */}
+          <div className="space-y-12">
+            {/* Basic Information */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 pb-3 border-b border-white/5">
+                <h2 className="text-sm font-medium text-foreground/70 uppercase tracking-widest">Basic Information</h2>
               </div>
+              
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-sm font-medium text-foreground/90">Product Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Premium Wireless Headphones"
+                    className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="description" className="text-sm font-medium text-foreground/90">Description</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="Describe your product, its features, and benefits..."
+                    rows={4}
+                    className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-primary focus-visible:outline-none transition-all duration-300 resize-none placeholder:text-muted-foreground/40"
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-5 pt-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="category" className="text-sm font-medium text-foreground/90">Category</Label>
+                    <Select value={formData.category} onValueChange={handleCategoryChange}>
+                      <SelectTrigger className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus:outline-none focus-visible:border-primary transition-all duration-300">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map((cat) => (
+                          <SelectItem key={cat} value={cat}>
+                            {cat}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="brand" className="text-sm font-medium text-foreground/90">Brand</Label>
+                      <span className="text-xs text-muted-foreground/60 italic">optional</span>
+                    </div>
+                    <Input
+                      id="brand"
+                      name="brand"
+                      value={formData.brand}
+                      onChange={handleInputChange}
+                      placeholder="Apple, Samsung..."
+                      className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <div>
-                <Label htmlFor="brand">Brand</Label>
-                <Input
-                  id="brand"
-                  name="brand"
-                  value={formData.brand}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Apple, Samsung, Nike"
-                />
+            {/* Pricing */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 pb-3 border-b border-white/5">
+                <h2 className="text-sm font-medium text-foreground/70 uppercase tracking-widest">Pricing</h2>
+              </div>
+              
+              <div className="space-y-5">
+                <div className="grid grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="price" className="text-sm font-medium text-foreground/90">Price (₦)</Label>
+                    <Input
+                      id="price"
+                      name="price"
+                      type="number"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                      className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="comparePrice" className="text-sm font-medium text-foreground/90">Compare Price (₦)</Label>
+                      <span className="text-xs text-muted-foreground/60 italic">optional</span>
+                    </div>
+                    <Input
+                      id="comparePrice"
+                      name="comparePrice"
+                      type="number"
+                      value={formData.comparePrice}
+                      onChange={handleInputChange}
+                      placeholder="0.00"
+                      min="0"
+                      step="0.01"
+                      className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                    />
+                  </div>
+                </div>
+                
+                <p className="text-xs text-muted-foreground/60 italic pl-1">
+                  Set a compare price to display discounts
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Pricing */}
-        <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Pricing
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="price">Price (₦) *</Label>
-              <Input
-                id="price"
-                name="price"
-                type="number"
-                value={formData.price}
-                onChange={handleInputChange}
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-                required
-              />
+          {/* Right Column */}
+          <div className="space-y-12">
+            {/* Inventory */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 pb-3 border-b border-white/5">
+                <h2 className="text-sm font-medium text-foreground/70 uppercase tracking-widest">Inventory</h2>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-5">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="sku" className="text-sm font-medium text-foreground/90">SKU</Label>
+                    <span className="text-xs text-muted-foreground/60 italic">optional</span>
+                  </div>
+                  <Input
+                    id="sku"
+                    name="sku"
+                    value={formData.sku}
+                    onChange={handleInputChange}
+                    placeholder="ABC-123"
+                    className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="stock" className="text-sm font-medium text-foreground/90">Stock Qty</Label>
+                  <Input
+                    id="stock"
+                    name="stock"
+                    type="number"
+                    value={formData.stock}
+                    onChange={handleInputChange}
+                    placeholder="0"
+                    min="0"
+                    className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="weight" className="text-sm font-medium text-foreground/90">Weight</Label>
+                    <span className="text-xs text-muted-foreground/60 italic">optional</span>
+                  </div>
+                  <Input
+                    id="weight"
+                    name="weight"
+                    type="number"
+                    value={formData.weight}
+                    onChange={handleInputChange}
+                    placeholder="0.0 kg"
+                    min="0"
+                    step="0.01"
+                    className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
+                  />
+                </div>
+              </div>
             </div>
 
-            <div>
-              <Label htmlFor="comparePrice">Compare at Price (₦)</Label>
-              <Input
-                id="comparePrice"
-                name="comparePrice"
-                type="number"
-                value={formData.comparePrice}
-                onChange={handleInputChange}
-                placeholder="0.00"
-                min="0"
-                step="0.01"
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Show a discount by setting a higher compare price
+            {/* Product Images */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 pb-3 border-b border-white/5">
+                <h2 className="text-sm font-medium text-foreground/70 uppercase tracking-widest">Product Images</h2>
+                <span className="text-xs text-muted-foreground/60 italic">optional</span>
+              </div>
+              
+              <div className="grid grid-cols-4 gap-4">
+                {images.map((image, index) => (
+                  <div key={index} className="relative group">
+                    {/* Glow effect on hover */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                    
+                    <img
+                      src={image}
+                      alt={`Product ${index + 1}`}
+                      className="relative w-full aspect-square object-cover rounded-xl border border-white/10 shadow-lg shadow-black/10 transition-all duration-300 group-hover:scale-[1.02]"
+                    />
+                    
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(index)}
+                      className="absolute -top-2 -right-2 p-2 bg-destructive/95 backdrop-blur-md text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-lg"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+                
+                {images.length < 10 && (
+                  <label className="relative flex flex-col items-center justify-center w-full aspect-square border border-dashed border-white/20 rounded-xl cursor-pointer transition-all duration-300 hover:border-primary/60 hover:bg-primary/5 group overflow-hidden">
+                    {/* Subtle gradient on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <Upload className="relative w-7 h-7 text-muted-foreground/50 mb-2 group-hover:text-primary/80 group-hover:scale-110 transition-all duration-300" />
+                    <span className="relative text-xs text-muted-foreground/60 group-hover:text-primary/90 transition-colors duration-300">
+                      Upload Image
+                    </span>
+                    
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
+              
+              <p className="text-xs text-muted-foreground/60 italic pl-1">
+                Upload up to 10 images. First image will be the main display.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Inventory */}
-        <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Inventory
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <Label htmlFor="sku">SKU</Label>
-              <Input
-                id="sku"
-                name="sku"
-                value={formData.sku}
-                onChange={handleInputChange}
-                placeholder="e.g., WH-1000XM5"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="stock">Stock Quantity *</Label>
-              <Input
-                id="stock"
-                name="stock"
-                type="number"
-                value={formData.stock}
-                onChange={handleInputChange}
-                placeholder="0"
-                min="0"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="weight">Weight (kg)</Label>
-              <Input
-                id="weight"
-                name="weight"
-                type="number"
-                value={formData.weight}
-                onChange={handleInputChange}
-                placeholder="0.0"
-                min="0"
-                step="0.01"
-              />
-            </div>
+        {/* Tags Section - Full width */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 pb-3 border-b border-white/5">
+            <h2 className="text-sm font-medium text-foreground/70 uppercase tracking-widest">Product Tags</h2>
+            <span className="text-xs text-muted-foreground/60 italic">optional</span>
           </div>
-        </div>
-
-        {/* Images */}
-        <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Product Images
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-            {images.map((image, index) => (
-              <div key={index} className="relative group">
-                <img
-                  src={image}
-                  alt={`Product ${index + 1}`}
-                  className="w-full aspect-square object-cover rounded-lg border border-border"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleRemoveImage(index)}
-                  className="absolute top-2 right-2 p-1 bg-destructive text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-
-            <label className="flex flex-col items-center justify-center w-full aspect-square border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary hover:bg-accent transition-colors">
-              <Upload className="w-8 h-8 text-muted-foreground mb-2" />
-              <span className="text-sm text-muted-foreground">
-                Upload Image
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </label>
-          </div>
-
-          <p className="text-xs text-muted-foreground">
-            Upload up to 10 images. First image will be the main product image.
-          </p>
-        </div>
-
-        {/* Tags */}
-        <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Tags</h2>
-
-          <div className="flex gap-2 mb-3">
+          
+          <div className="flex gap-3">
             <Input
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
-              placeholder="Add a tag (e.g., wireless, bluetooth)"
+              placeholder="wireless, bluetooth, premium..."
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+              className="bg-transparent border-0 border-b border-white/10 rounded-none px-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:border-primary transition-all duration-300 placeholder:text-muted-foreground/40"
             />
-            <Button type="button" onClick={handleAddTag} variant="outline">
-              <Plus className="w-4 h-4" />
+            <Button 
+              type="button" 
+              onClick={handleAddTag} 
+              size="sm"
+              className="shrink-0 bg-primary/10 hover:bg-primary/20 text-primary border-0 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Add
             </Button>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-              >
-                {tag}
-                <button
-                  type="button"
-                  onClick={() => handleRemoveTag(tag)}
-                  className="hover:text-primary/70"
+          
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-2.5 pt-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="group inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-primary/15 to-primary/5 text-primary rounded-full text-sm border border-primary/20 hover:border-primary/40 hover:from-primary/20 hover:to-primary/10 transition-all duration-300"
                 >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-          </div>
+                  {tag}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTag(tag)}
+                    className="hover:text-primary/70 transition-colors duration-200 hover:rotate-90 transition-transform"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-4 pt-4">
-          <Button type="button" variant="outline" asChild>
+        <div className="flex items-center justify-end gap-4 pt-12 mt-8 border-t border-white/5">
+          <Button 
+            type="button" 
+            variant="ghost" 
+            asChild 
+            className="min-w-28 hover:bg-white/5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
             <Link to="/dashboard">Cancel</Link>
           </Button>
-          <Button type="submit" className="min-w-32">
-            Add Product
+          <Button 
+            type="submit" 
+            className="relative min-w-36 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-105 transition-all duration-300 overflow-hidden group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <span className="relative z-10">Add Product</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
           </Button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default AddProduct
