@@ -9,25 +9,35 @@ interface RecentsProps {
 
 export const RecentOrdersAndReviews = ({ recentReviews, recentOrders }: RecentsProps) => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {/* Recent Orders - Compact */}
-            <div className="bg-card rounded-lg border border-border shadow-sm">
-                <div className="px-5 py-3 border-b border-border">
-                    <h2 className="text-base font-semibold text-foreground">Recent Orders</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Recent Orders - Clean List Style */}
+            <div className="space-y-3">
+                {/* Minimal header */}
+                <div className="flex items-center justify-between px-1">
+                    <h2 className="text-sm font-semibold text-foreground/70">Recent Orders</h2>
+                    <Link to="/dashboard/orders" className="text-xs text-primary font-medium hover:underline">
+                        View all →
+                    </Link>
                 </div>
-                <div className="divide-y divide-border">
+                
+                {/* Clean list items */}
+                <div className="space-y-2">
                     {recentOrders.map((order) => (
-                        <div key={order.id} className="px-5 py-3 hover:bg-accent/50 transition-colors">
+                        <div 
+                            key={order.id} 
+                            className="group px-4 py-3.5 rounded-xl hover:bg-card/60 hover:backdrop-blur-sm transition-all duration-200 cursor-pointer"
+                        >
                             <div className="flex items-center justify-between gap-3">
                                 <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-0.5">
-                                        <span className="text-sm font-semibold text-foreground">{order.id}</span>
-                                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${order.status === 'Completed'
-                                            ? 'bg-green-100 text-green-700'
-                                            : order.status === 'Processing'
-                                                ? 'bg-blue-100 text-blue-700'
-                                                : 'bg-yellow-100 text-yellow-700'
-                                            }`}>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-sm font-bold text-foreground">{order.id}</span>
+                                        <span className={`text-xs px-2 py-0.5 rounded-full font-semibold backdrop-blur-sm ${
+                                            order.status === 'Completed'
+                                                ? 'bg-green-500/15 text-green-700 border border-green-500/20'
+                                                : order.status === 'Processing'
+                                                ? 'bg-blue-500/15 text-blue-700 border border-blue-500/20'
+                                                : 'bg-amber-500/15 text-amber-700 border border-amber-500/20'
+                                        }`}>
                                             {order.status}
                                         </span>
                                     </div>
@@ -35,48 +45,57 @@ export const RecentOrdersAndReviews = ({ recentReviews, recentOrders }: RecentsP
                                         {order.customer} · {order.date}
                                     </div>
                                 </div>
-                                <div className="text-sm font-semibold text-foreground whitespace-nowrap">
+                                <div className="text-sm font-bold text-foreground whitespace-nowrap group-hover:text-primary transition-colors">
                                     {order.amount}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className="px-5 py-2.5 border-t border-border text-center">
-                    <Link to="/dashboard/orders" className="text-xs text-primary font-medium hover:underline">
-                        View all orders →
-                    </Link>
-                </div>
             </div>
 
-            {/* Customer Reviews */}
-            <div className="bg-card rounded-lg border border-border shadow-sm">
-                <div className="px-5 py-3 border-b border-border">
-                    <h2 className="text-base font-semibold text-foreground">Recent Reviews</h2>
+            {/* Customer Reviews - Clean List Style */}
+            <div className="space-y-3">
+                {/* Minimal header */}
+                <div className="flex items-center justify-between px-1">
+                    <h2 className="text-sm font-semibold text-foreground/70">Recent Reviews</h2>
+                    <button className="text-xs text-primary font-medium hover:underline">
+                        View all →
+                    </button>
                 </div>
-                <div className="divide-y divide-border">
+                
+                {/* Clean list items */}
+                <div className="space-y-2">
                     {recentReviews.map((review) => (
-                        <div key={review.id} className="px-5 py-3 hover:bg-accent/50 transition-colors">
+                        <div 
+                            key={review.id} 
+                            className="group px-4 py-3.5 rounded-xl hover:bg-card/60 hover:backdrop-blur-sm transition-all duration-200 cursor-pointer"
+                        >
                             <div className="flex items-start gap-3">
-                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                    <span className="text-primary font-semibold text-xs">
-                                        {review.customer.charAt(0)}
-                                    </span>
+                                {/* Avatar with subtle glow */}
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="relative w-9 h-9 rounded-full bg-linear-to-br from-primary/15 to-primary/5 flex items-center justify-center shrink-0 border border-primary/10">
+                                        <span className="text-primary font-bold text-xs">
+                                            {review.customer.charAt(0)}
+                                        </span>
+                                    </div>
                                 </div>
+                                
                                 <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-sm font-semibold text-foreground">{review.customer}</span>
+                                    <div className="flex items-center gap-2 mb-1.5">
+                                        <span className="text-sm font-bold text-foreground">{review.customer}</span>
                                         <div className="flex items-center gap-0.5">
                                             {Array.from({ length: review.rating }).map((_, i) => (
                                                 <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                                             ))}
                                         </div>
                                     </div>
-                                    <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
-                                        {review.comment}
+                                    <p className="text-xs text-foreground/70 line-clamp-2 mb-1.5 leading-relaxed">
+                                        "{review.comment}"
                                     </p>
                                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                        <span className="truncate">{review.productName}</span>
+                                        <span className="truncate font-medium">{review.productName}</span>
                                         <span>·</span>
                                         <span>{review.date}</span>
                                     </div>
@@ -84,11 +103,6 @@ export const RecentOrdersAndReviews = ({ recentReviews, recentOrders }: RecentsP
                             </div>
                         </div>
                     ))}
-                </div>
-                <div className="px-5 py-2.5 border-t border-border text-center">
-                    <button className="text-xs text-primary font-medium hover:underline">
-                        View all reviews →
-                    </button>
                 </div>
             </div>
         </div>
