@@ -82,7 +82,7 @@ const AddProduct: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      {/* <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-3 mb-2">
             <Link
@@ -98,7 +98,7 @@ const AddProduct: React.FC = () => {
             Create a new product listing for your store
           </p>
         </div>
-      </div>
+      </div> */}
 
       <form onSubmit={handleSubmit} className="space-y-12">
         {/* Main grid: 2 columns on large screens */}
