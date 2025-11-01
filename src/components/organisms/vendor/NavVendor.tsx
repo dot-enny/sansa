@@ -1,24 +1,24 @@
 import React from 'react'
+import { vendorInfo } from '@/data/vendorData'
 
 const NavVendor: React.FC = () => {
   // Get vendor name from auth context or API in real implementation
-  const vendorName = "StoreName"
+  const { storeName } = vendorInfo
 
   return (
-    <header className="bg-card border-b border-border px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-20">
-      <div className="flex items-center gap-4">
-        <h1 className="text-2xl font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-          Sansa
+    <header className="bg-card border-b border-border px-6 py-2.5 flex items-center justify-between shadow-sm sticky top-0 z-20">
+      <div className="flex items-center gap-3">
+        <h1 className="text-xl font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          sansa
         </h1>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <div className="text-right">
-          <p className="text-xs text-muted-foreground">Welcome back,</p>
-          <p className="text-sm font-semibold text-foreground">{vendorName}</p>
+          <p className="text-xs font-medium text-foreground">{storeName}</p>
         </div>
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="text-primary font-semibold text-sm">
-            {vendorName.charAt(0).toUpperCase()}
+        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+          <span className="text-primary font-semibold text-xs">
+            {storeName.charAt(0).toUpperCase()}
           </span>
         </div>
       </div>

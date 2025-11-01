@@ -1,5 +1,6 @@
-import { Link, useLocation, useParams } from "react-router-dom";
-import { LayoutDashboard, PlusCircle, Boxes, ShoppingBag } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { LayoutDashboard, PlusCircle, Boxes, ShoppingBag, TrendingUp } from "lucide-react";
+import { vendorInfo } from '@/data/vendorData'
 
 const links = [
   {
@@ -25,14 +26,14 @@ const links = [
 ];
 
 export default function SidebarVendor() {
-
   const location = useLocation();
-  const storeName = "StoreName";
+  const { storeName, trustScore, maxTrustScore } = vendorInfo;
+  const scorePercentage = (trustScore / maxTrustScore) * 100;
   
   return (
     <div className="flex flex-col h-full bg-card">
       {/* Store Logo/Name Section */}
-      <div className="px-6 py-6 border-b border-border">
+      <div className="px-6 py-6">
         <div className="flex flex-col items-center text-center gap-3">
           <div className="w-20 h-20 rounded-xl bg-linear-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
             <span className="text-2xl font-bold text-primary-foreground">
@@ -47,7 +48,7 @@ export default function SidebarVendor() {
       </div>
 
       {/* Navigation Menu - aligned to top */}
-      <nav className="flex-1 px-4 py-4 overflow-y-auto">
+      <nav className="flex-1 px-4 py-2 overflow-y-auto">
         <ul className="flex flex-col gap-1">
           {links.map((link) => {
             const isActive = location.pathname === link.to;
@@ -72,14 +73,26 @@ export default function SidebarVendor() {
         </ul>
       </nav>
 
-      {/* Credit Score Badge at bottom */}
-      <div className="px-6 py-4 border-t border-border bg-muted/30 mt-auto">
-        <div className="text-xs text-muted-foreground mb-1">Credit Score</div>
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-2 bg-background rounded-full overflow-hidden">
-            <div className="h-full bg-primary w-[75%]"></div>
+      {/* Trust Score Badge at bottom */}
+      <div className="px-6 py-5 bg-linear-to-br from-primary/5 to-primary/10 border-t border-border/50 mt-auto">
+        <div className="flex items-center gap-2 mb-2">
+          <TrendingUp className="w-4 h-4 text-primary" />
+          <div className="text-xs font-semibold text-foreground/80">Trust Score</div>
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-bold text-primary">{trustScore}</span>
+            <span className="text-xs text-muted-foreground">of {maxTrustScore}</span>
           </div>
-          <span className="text-sm font-bold text-foreground">750</span>
+          <div className="relative h-2.5 bg-background/50 rounded-full overflow-hidden">
+            <div 
+              className="absolute inset-y-0 left-0 bg-linear-to-r from-primary to-primary/70 rounded-full transition-all duration-500"
+              style={{ width: `${scorePercentage}%` }}
+            ></div>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Build trust to unlock better rates
+          </p>
         </div>
       </div>
     </div>
