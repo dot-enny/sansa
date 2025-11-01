@@ -6,7 +6,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import NotFound from './pages/NotFound'
 import CategoryPage from './pages/CategoryPage'
-import VendorPage from './pages/VendorPage'
+import StorePage from './pages/StorePage'
+import VendorDashboard from './pages/vendor/VendorDashboard'
 import AdminDashboard from './admin/pages/AdminDashboard'
 import ProductPage from './pages/products/ProductPage'
 import OrdersPage from './pages/OrdersPage'
@@ -36,16 +37,24 @@ const router = createBrowserRouter([
       { path: 'cart', element: <CartPage /> },
       { path: 'product/:id', element: <ProductPage /> },
       { path: 'about', element: <About /> },
+      // Public store pages - customers can browse any vendor's store
+      { path: 'store/:vendorId', element: <StorePage /> },
       { path: '*', element: <NotFound /> },
     ],
   },
-  // vendor routes use a different layout (different navbar)
+  // Vendor dashboard routes - authenticated vendor manages their own store
   {
-    path: '/vendor/:vendorId',
+    path: '/dashboard',
     element: <VendorLayout />,
-    children: [{ index: true, element: <VendorPage /> }],
+    children: [
+      { index: true, element: <VendorDashboard /> },
+      // Add more vendor dashboard routes here as needed
+      // { path: 'add-product', element: <AddProduct /> },
+      // { path: 'manage-products', element: <ManageProducts /> },
+      // { path: 'orders', element: <VendorOrders /> },
+    ],
   },
-  // admin routes use the admin layout
+  // Admin routes use the admin layout
   {
     path: '/admin',
     element: <AdminLayout />,
