@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound'
 import CategoryPage from './pages/CategoryPage'
 import StorePage from './pages/StorePage'
 import VendorDashboard from './pages/vendor/VendorDashboard'
+import AddProduct from './pages/vendor/AddProduct'
 import AdminDashboard from './admin/pages/AdminDashboard'
 import ProductPage from './pages/products/ProductPage'
 import OrdersPage from './pages/OrdersPage'
@@ -48,8 +49,8 @@ const router = createBrowserRouter([
     element: <VendorLayout />,
     children: [
       { index: true, element: <VendorDashboard /> },
-      // Add more vendor dashboard routes here as needed
-      // { path: 'add-product', element: <AddProduct /> },
+      { path: 'add-product', element: <AddProduct /> },
+      // More routes to be added:
       // { path: 'manage-products', element: <ManageProducts /> },
       // { path: 'orders', element: <VendorOrders /> },
     ],
