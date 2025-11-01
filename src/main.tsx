@@ -9,6 +9,7 @@ import CategoryPage from './pages/CategoryPage'
 import StorePage from './pages/StorePage'
 import VendorDashboard from './pages/vendor/VendorDashboard'
 import AddProduct from './pages/vendor/AddProduct'
+import ManageProducts from './pages/vendor/ManageProducts'
 import AdminDashboard from './admin/pages/AdminDashboard'
 import ProductPage from './pages/products/ProductPage'
 import OrdersPage from './pages/OrdersPage'
@@ -50,8 +51,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <VendorDashboard /> },
       { path: 'add-product', element: <AddProduct /> },
+      { path: 'manage-products', element: <ManageProducts /> },
       // More routes to be added:
-      // { path: 'manage-products', element: <ManageProducts /> },
       // { path: 'orders', element: <VendorOrders /> },
     ],
   },
