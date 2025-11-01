@@ -42,7 +42,7 @@ const SansaBranding = () => {
   return (
     <div className="px-6 py-2 border- border-border">
       <div className="flex items-center justify-cente">
-        <h2 className="text-sm font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+        <h2 className="text-sm font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent three-d-text-shadow">
           sansa
         </h2>
       </div>

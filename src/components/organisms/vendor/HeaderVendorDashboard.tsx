@@ -17,10 +17,10 @@ const HeaderVendorDashboard: React.FC<HeaderVendorDashboardProps> = ({ showHeade
     >
       <div className="flex items-center gap-3">
         <div className="text-right">
-          <p className="text- font-medium text-foreground">{storeName}</p>
+          <p className="text- font-medium text-foreground/70 text-shadow-2xs">{storeName}</p>
         </div>
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="text-primary font-semibold text-xs">
+        <div className="shadow w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+          <span className="text-primary font-semibold text-">
             {storeName.charAt(0).toUpperCase()}
           </span>
         </div>
