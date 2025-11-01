@@ -131,8 +131,8 @@ const QuickActions = () => {
                     
                     {/* Icon */}
                     <div className="relative inline-block mb-3">
-                        <div className="absolute inset-0 bg-secondary/20 rounded-xl blur-md" />
-                        <div className="relative p-3 bg-linear-to-br from-secondary/10 to-secondary/5 rounded-xl text-primary
+                        <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md" />
+                        <div className="relative p-3 bg-linear-to-br from-primary/10 to-primary/5 rounded-xl text-primary
                                       group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
                             <TrendingUp className="w-7 h-7" />
                         </div>
