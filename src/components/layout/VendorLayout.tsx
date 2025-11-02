@@ -39,7 +39,7 @@ const VendorLayout: React.FC = () => {
         <HeaderVendorDashboard showHeader={showHeader} />
 
         {/* Main Content */}
-        <main className="p-8 min-h-screen">
+        <main className="p-8 min-h-scree">
           <Outlet />
         </main>
       </div>
