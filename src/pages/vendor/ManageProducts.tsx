@@ -1,7 +1,7 @@
 import React from 'react'
 import { useManageProducts } from '@/hooks/useManageProducts'
 import { categories, mockProducts } from '@/data/mockProducts'
-import { Header } from '@/components/organisms/vendor/manage-products/Header'
+// import { Header } from '@/components/organisms/vendor/manage-products/Header'
 import { FiltersAndSearch } from '@/components/organisms/vendor/manage-products/FiltersAndSearch'
 import { ProductListItem } from '@/components/organisms/vendor/manage-products/ProductListItem'
 import { EmptyState } from '@/components/organisms/vendor/manage-products/EmptyState'
@@ -36,7 +36,7 @@ const ManageProducts: React.FC = () => {
                 <div className="absolute top-[50%] left-[50%] w-[400px] h-[400px] bg-linear-to-bl from-primary/4 to-transparent rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '15s', animationDelay: '5s' }} />
             </div>
 
-            <Header />
+            {/* <Header /> */}
 
             <FiltersAndSearch 
                 searchQuery={searchQuery} 
