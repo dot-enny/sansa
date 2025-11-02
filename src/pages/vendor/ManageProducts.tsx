@@ -51,7 +51,7 @@ const ManageProducts: React.FC = () => {
             />
 
             {filteredProducts.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-3 grid grid-cols-2 gap-4">
                     {filteredProducts.map((product) => (
                         <ProductListItem
                             key={product.id}

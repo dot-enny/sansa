@@ -38,7 +38,7 @@ export const ProductListItem = ({
       </div>
 
       {/* Product Info */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-[2fr,1fr,1fr,1fr] gap-4 md:gap-8 items-center">
+      <div className="flex-1 gap-4 md:gap-8 items-center">
         {/* Name & Category */}
         <div className="space-y-1">
           <Link
