@@ -1,49 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import SidebarVendor from '../organisms/vendor/SidebarVendor'
-// import HeaderVendorDashboard from '../organisms/vendor/HeaderVendorDashboard'
+import React from 'react'
+import { LayoutDashboard, PlusCircle, Boxes, ShoppingBag } from 'lucide-react'
+import DashboardLayout from './DashboardLayout'
+import DashboardSidebar from '../organisms/shared/DashboardSidebar'
+import { vendorInfo } from '@/data/vendorData'
+import type { NavigationLink, UserInfo, MetricInfo } from '../organisms/shared/DashboardSidebar'
 
 const VendorLayout: React.FC = () => {
-  // const [showHeader, setShowHeader] = useState(true)
-  // const [lastScrollY, setLastScrollY] = useState(0)
+  const navigationLinks: NavigationLink[] = [
+    {
+      name: 'Dashboard',
+      to: '/vendor-dashboard',
+      icon: <LayoutDashboard className="w-5 h-5" />,
+    },
+    {
+      name: 'Add Product',
+      to: '/vendor-dashboard/add-product',
+      icon: <PlusCircle className="w-5 h-5" />,
+    },
+    {
+      name: 'Manage Products',
+      to: '/vendor-dashboard/manage-products',
+      icon: <Boxes className="w-5 h-5" />,
+    },
+    {
+      name: 'Orders',
+      to: '/vendor-dashboard/orders',
+      icon: <ShoppingBag className="w-5 h-5" />,
+    },
+  ]
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY
+  const userInfo: UserInfo = {
+    name: vendorInfo.storeName,
+  }
 
-  //     if (currentScrollY > lastScrollY && currentScrollY > 100) {
-  //       // Scrolling down - hide header
-  //       setShowHeader(false)
-  //     } else {
-  //       // Scrolling up - show header
-  //       setShowHeader(true)
-  //     }
-
-  //     setLastScrollY(currentScrollY)
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll, { passive: true })
-  //   return () => window.removeEventListener('scroll', handleScroll)
-  // }, [lastScrollY])
+  const metric: MetricInfo = {
+    label: 'Trust Score',
+    value: vendorInfo.trustScore,
+    maxValue: vendorInfo.maxTrustScore,
+    description: 'Build trust to unlock better rates',
+  }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Fixed Sidebar - Now spans full height */}
-      <aside className="w-72 bg-card border- border-border shrink-0 shadow-sm fixed left-0 top-0 bottom-0 overflow-y-auto z-30">
-        <SidebarVendor />
-      </aside>
-
-      {/* Content Area with Header and Main */}
-      <div className="ml-72">
-        {/* Sticky Header - Auto-hides on scroll */}
-        {/* <HeaderVendorDashboard showHeader={showHeader} /> */}
-
-        {/* Main Content */}
-        <main className="p-8 min-h-scree">
-          <Outlet />
-        </main>
-      </div>
-    </div>
+    <DashboardLayout
+      sidebar={
+        <DashboardSidebar
+          userInfo={userInfo}
+          navigationLinks={navigationLinks}
+          metric={metric}
+          userType="vendor"
+        />
+      }
+    />
   )
 }
 

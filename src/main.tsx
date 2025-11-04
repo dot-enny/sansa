@@ -18,8 +18,9 @@ import OrderPage from './pages/orders/OrderPage'
 import AccountPage from './pages/AccountPage'
 import CheckoutPage from './pages/CheckoutPage'
 import VendorLayout from './components/layout/VendorLayout'
+import LenderLayout from './components/layout/LenderLayout'
 import AdminLayout from './admin/layout/AdminLayout'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import CartPage from './pages/CartPage'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
@@ -57,9 +58,10 @@ const router = createBrowserRouter([
       { path: 'orders', element: <VendorOrders /> },
     ],
   },
+  // Lender dashboard routes - authenticated lender manages investments
   { 
     path: '/lender-dashboard', 
-    element: <Outlet />,
+    element: <LenderLayout />,
     children: [
       { index: true, element: <LenderDashboard /> }
     ]
