@@ -88,11 +88,15 @@ For each feature/page, create:
 ### Design System Guidelines
 
 #### Visual Hierarchy
-- **Depth through effects**, not boxes
+- **Strong depth through layered effects**, not flat boxes
 - Ambient gradient backgrounds for atmosphere
-- Glassmorphism with backdrop-blur
-- Layered shadows for elevation
-- Minimal borders, maximal depth
+- Enhanced glassmorphism with `backdrop-blur-xl` (not just `-md`)
+- Multiple shadow layers: base `shadow-lg shadow-black/5` + hover `shadow-xl shadow-primary/10`
+- Card lift effects with `hover:-translate-y-1`
+- Stronger opacity: use `/60` instead of `/40` for better visibility
+- Icon containers with gradient backgrounds and colored shadows
+- Gradient overlays on hover for subtle depth
+- Border visibility: use `border-border/60` instead of `/40`
 
 #### Color Palette
 - **Primary**: Blue (#3b82f6) - Main actions, highlights
@@ -132,11 +136,29 @@ For each feature/page, create:
 
 #### Card/Container Styles
 ```tsx
-// Glassmorphism Card
-className="relative p-6 rounded-xl bg-card/40 backdrop-blur-md 
-  border border-border/40 hover:border-primary/40 
-  transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
+// Enhanced Glassmorphism Card with Strong Depth
+className="relative p-6 rounded-xl bg-card/60 backdrop-blur-xl 
+  border border-border/60 shadow-lg shadow-black/5 
+  hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 
+  transition-all duration-300 hover:-translate-y-1 group"
+
+// With gradient overlay on hover
+<div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent 
+  rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+// Icon containers with depth
+className="w-12 h-12 rounded-xl bg-linear-to-br from-primary/25 to-primary/10 
+  flex items-center justify-center shadow-md shadow-primary/20"
 ```
+
+**Key Depth Principles:**
+- Use `bg-card/60` instead of `/40` for better opacity
+- Add `backdrop-blur-xl` instead of `-md` for stronger blur
+- Include `shadow-lg shadow-black/5` as base shadow
+- Enhance hover with `shadow-xl shadow-primary/10`
+- Add `hover:-translate-y-1` for lift effect
+- Use `border-border/60` instead of `/40` for visibility
+- Apply gradient overlays for subtle depth layers
 
 #### Ambient Background Layers
 ```tsx

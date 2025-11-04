@@ -17,13 +17,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
       <Input
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="pl-10 bg-card/40 backdrop-blur-md border-border/40 focus:border-primary/60 transition-all"
+        className="pl-11 h-12 bg-card/60 backdrop-blur-xl border-border/60 shadow-md shadow-black/5 focus:shadow-lg focus:shadow-primary/10 focus:border-primary/60 transition-all"
       />
     </div>
   )

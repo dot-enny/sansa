@@ -55,9 +55,9 @@ export const PortfolioHealthChart = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload
       return (
-        <div className="bg-card/95 backdrop-blur-md border border-border/40 rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-semibold text-foreground mb-1">{data.name}</p>
-          <p className="text-xs text-muted-foreground">
+        <div className="bg-card/95 backdrop-blur-xl border border-border/60 rounded-lg p-3 shadow-xl shadow-black/20">
+          <p className="text-sm font-bold text-foreground mb-1">{data.name}</p>
+          <p className="text-xs text-muted-foreground font-medium">
             {data.value} investment{data.value !== 1 ? 's' : ''} ({data.percentage.toFixed(1)}%)
           </p>
         </div>
@@ -71,10 +71,10 @@ export const PortfolioHealthChart = ({
   }
 
   return (
-    <div className="relative p-6 rounded-xl bg-card/40 backdrop-blur-md border border-border/40 hover:border-primary/40 transition-all duration-300">
+    <div className="relative p-6 rounded-xl bg-card/60 backdrop-blur-xl border border-border/60 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 transition-all duration-300">
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-foreground mb-1">Portfolio Health</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className="text-xl font-bold text-foreground mb-2">Portfolio Health</h3>
+        <p className="text-sm text-muted-foreground font-medium">
           Overview of {totalCount} active investment{totalCount !== 1 ? 's' : ''}
         </p>
       </div>

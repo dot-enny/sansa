@@ -53,37 +53,37 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
   )
 
   return (
-    <div className="relative rounded-xl bg-card/40 backdrop-blur-md border border-border/40 overflow-hidden">
+    <div className="relative rounded-xl bg-card/60 backdrop-blur-xl border border-border/60 shadow-xl shadow-black/10 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="border-b border-border/40 bg-muted/30">
+          <thead className="border-b border-border/60 bg-muted/50">
             <tr>
-              <th className="text-left p-3">
-                <span className="text-xs font-medium text-muted-foreground">Vendor</span>
+              <th className="text-left p-4">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Vendor</span>
               </th>
-              <th className="text-left p-3">
+              <th className="text-left p-4">
                 <SortButton field="amount">Amount</SortButton>
               </th>
-              <th className="text-left p-3">
-                <span className="text-xs font-medium text-muted-foreground">APR</span>
+              <th className="text-left p-4">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">APR</span>
               </th>
-              <th className="text-left p-3">
+              <th className="text-left p-4">
                 <SortButton field="returns">Returns</SortButton>
               </th>
-              <th className="text-left p-3">
-                <span className="text-xs font-medium text-muted-foreground">Progress</span>
+              <th className="text-left p-4">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Progress</span>
               </th>
-              <th className="text-left p-3">
+              <th className="text-left p-4">
                 <SortButton field="status">Status</SortButton>
               </th>
-              <th className="text-left p-3">
+              <th className="text-left p-4">
                 <SortButton field="risk">Risk</SortButton>
               </th>
-              <th className="text-left p-3">
-                <span className="text-xs font-medium text-muted-foreground">Next Payment</span>
+              <th className="text-left p-4">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Next Payment</span>
               </th>
-              <th className="text-right p-3">
-                <span className="text-xs font-medium text-muted-foreground">Actions</span>
+              <th className="text-right p-4">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Actions</span>
               </th>
             </tr>
           </thead>
@@ -98,19 +98,19 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
               return (
                 <tr
                   key={investment.id}
-                  className="border-b border-border/20 hover:bg-muted/20 transition-all cursor-pointer group"
+                  className="border-b border-border/40 hover:bg-muted/30 transition-all cursor-pointer group hover:shadow-sm"
                   onClick={() => onViewDetails(investment)}
                 >
                   {/* Vendor */}
-                  <td className="p-3">
+                  <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-linear-to-br from-primary/20 to-primary/5 flex items-center justify-center shrink-0">
-                        <span className="text-xs font-bold text-primary">
+                      <div className="w-11 h-11 rounded-xl bg-linear-to-br from-primary/25 to-primary/10 flex items-center justify-center shrink-0 shadow-md shadow-primary/10">
+                        <span className="text-sm font-bold text-primary">
                           {investment.vendorName.charAt(0)}
                         </span>
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium truncate">{investment.vendorName}</p>
+                        <p className="text-sm font-semibold truncate">{investment.vendorName}</p>
                         <p className="text-xs text-muted-foreground truncate">
                           {investment.vendorCategory}
                         </p>
@@ -119,7 +119,7 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
                   </td>
 
                   {/* Amount */}
-                  <td className="p-3">
+                  <td className="p-4">
                     <p className="text-sm font-semibold">
                       {formatCurrency(investment.principalAmount)}
                     </p>
@@ -127,23 +127,23 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
                   </td>
 
                   {/* APR */}
-                  <td className="p-3">
-                    <p className="text-sm font-medium">{formatAPR(investment.interestRate)}</p>
+                  <td className="p-4">
+                    <p className="text-sm font-semibold">{formatAPR(investment.interestRate)}</p>
                   </td>
 
                   {/* Returns */}
-                  <td className="p-3">
-                    <div className="flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3 text-green-600" />
+                  <td className="p-4">
+                    <div className="flex items-center gap-1.5">
+                      <TrendingUp className="w-3.5 h-3.5 text-green-600" />
                       <p className="text-sm font-semibold text-green-600">
                         {formatCurrency(investment.totalReturns)}
                       </p>
                     </div>
-                    <p className="text-xs text-muted-foreground">+{roi}% ROI</p>
+                    <p className="text-xs text-muted-foreground font-medium">+{roi}% ROI</p>
                   </td>
 
                   {/* Progress */}
-                  <td className="p-3">
+                  <td className="p-4">
                     <div className="space-y-1 min-w-[100px]">
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-muted-foreground">
@@ -156,21 +156,21 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
                   </td>
 
                   {/* Status */}
-                  <td className="p-3">
-                    <Badge variant="outline" className={getStatusColor(investment.status)}>
+                  <td className="p-4">
+                    <Badge variant="outline" className={`${getStatusColor(investment.status)} shadow-sm`}>
                       {getStatusLabel(investment.status)}
                     </Badge>
                   </td>
 
                   {/* Risk */}
-                  <td className="p-3">
-                    <Badge variant="outline" className={getRiskColor(investment.riskLevel)}>
+                  <td className="p-4">
+                    <Badge variant="outline" className={`${getRiskColor(investment.riskLevel)} shadow-sm`}>
                       {getRiskLabel(investment.riskLevel)}
                     </Badge>
                   </td>
 
                   {/* Next Payment */}
-                  <td className="p-3">
+                  <td className="p-4">
                     {investment.status !== 'completed' ? (
                       <div>
                         <p className="text-sm font-medium">
@@ -197,7 +197,7 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
                   </td>
 
                   {/* Actions */}
-                  <td className="p-3 text-right">
+                  <td className="p-4 text-right">
                     <Button
                       variant="ghost"
                       size="sm"
@@ -205,7 +205,7 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
                         e.stopPropagation()
                         onViewDetails(investment)
                       }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="opacity-0 group-hover:opacity-100 transition-all hover:bg-primary/10 shadow-sm"
                     >
                       <Eye className="w-4 h-4" />
                     </Button>

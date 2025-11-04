@@ -40,10 +40,12 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="p-5 rounded-xl bg-card/40 backdrop-blur-md border border-border/40">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-6 rounded-xl bg-card/60 backdrop-blur-xl border border-border/60 shadow-lg shadow-black/5">
+        <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Filter className="w-4 h-4 text-primary" />
+            </div>
             <h3 className="text-sm font-semibold">Filters</h3>
           </div>
           {hasActiveFilters && (
@@ -51,7 +53,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
               variant="ghost"
               size="sm"
               onClick={onClearAll}
-              className="h-7 text-xs"
+              className="h-8 text-xs shadow-sm hover:shadow-md transition-all"
             >
               <X className="w-3 h-3 mr-1" />
               Clear all
@@ -59,10 +61,10 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
           )}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {/* Status Filters */}
           <div>
-            <p className="text-xs text-muted-foreground mb-2">Status</p>
+            <p className="text-xs text-muted-foreground mb-3 font-medium">Status</p>
             <div className="flex flex-wrap gap-2">
               {statusOptions.map(status => {
                 const isActive = statusFilters.includes(status)
@@ -70,9 +72,9 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
                   <Badge
                     key={status}
                     variant={isActive ? 'default' : 'outline'}
-                    className={`cursor-pointer transition-all hover:scale-105 ${
+                    className={`cursor-pointer transition-all hover:scale-105 shadow-sm hover:shadow-md ${
                       isActive
-                        ? 'bg-primary text-primary-foreground border-primary'
+                        ? 'bg-primary text-primary-foreground border-primary shadow-primary/20'
                         : getStatusColor(status)
                     }`}
                     onClick={() => onToggleStatus(status)}
@@ -86,7 +88,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
 
           {/* Risk Level Filters */}
           <div>
-            <p className="text-xs text-muted-foreground mb-2">Risk Level</p>
+            <p className="text-xs text-muted-foreground mb-3 font-medium">Risk Level</p>
             <div className="flex flex-wrap gap-2">
               {riskOptions.map(risk => {
                 const isActive = riskFilters.includes(risk)
@@ -94,9 +96,9 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
                   <Badge
                     key={risk}
                     variant={isActive ? 'default' : 'outline'}
-                    className={`cursor-pointer transition-all hover:scale-105 ${
+                    className={`cursor-pointer transition-all hover:scale-105 shadow-sm hover:shadow-md ${
                       isActive
-                        ? 'bg-primary text-primary-foreground border-primary'
+                        ? 'bg-primary text-primary-foreground border-primary shadow-primary/20'
                         : getRiskColor(risk)
                     }`}
                     onClick={() => onToggleRisk(risk)}
@@ -111,7 +113,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
       </div>
 
       {/* Results Count */}
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between text-sm px-1">
         <p className="text-muted-foreground">
           Showing <span className="font-semibold text-foreground">{resultsCount}</span> investment
           {resultsCount !== 1 ? 's' : ''}

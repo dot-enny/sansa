@@ -59,37 +59,39 @@ export const KPICards = ({ kpis }: KPICardsProps) => {
         return (
           <div
             key={kpi.id}
-            className="group relative p-6 rounded-xl bg-card/40 backdrop-blur-md border border-border/40 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
+            className="group relative p-6 rounded-xl bg-card/60 backdrop-blur-xl border border-border/60 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
           >
-            {/* Background glow effect */}
-            <div className={`absolute inset-0 ${kpi.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl blur-xl -z-10`} />
+            {/* Background gradient overlay */}
+            <div className={`absolute inset-0 ${kpi.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl`} />
 
             {/* Icon */}
-            <div className={`w-12 h-12 rounded-lg ${kpi.bgColor} flex items-center justify-center mb-4`}>
-              <Icon className={`w-6 h-6 ${kpi.color}`} />
-            </div>
+            <div className="relative">
+              <div className={`w-12 h-12 rounded-xl ${kpi.bgColor} flex items-center justify-center mb-4 shadow-md ${kpi.color.replace('text-', 'shadow-')}/20`}>
+                <Icon className={`w-6 h-6 ${kpi.color}`} />
+              </div>
 
-            {/* Title */}
-            <p className="text-xs text-muted-foreground mb-1">{kpi.title}</p>
+              {/* Title */}
+              <p className="text-xs text-muted-foreground mb-1.5 font-medium">{kpi.title}</p>
 
-            {/* Value */}
-            <p className="text-2xl font-bold text-foreground mb-2 tracking-tight">
-              {kpi.value}
-            </p>
+              {/* Value */}
+              <p className="text-2xl font-bold text-foreground mb-2 tracking-tight">
+                {kpi.value}
+              </p>
 
-            {/* Trend */}
-            <div className="flex items-center gap-1">
-              <TrendIcon
-                className={`w-3 h-3 ${kpi.trendUp ? 'text-green-600' : 'text-red-600'}`}
-              />
-              <span
-                className={`text-xs font-medium ${
-                  kpi.trendUp ? 'text-green-600' : 'text-red-600'
-                }`}
-              >
-                {kpi.trend}
-              </span>
-              <span className="text-xs text-muted-foreground">vs last month</span>
+              {/* Trend */}
+              <div className="flex items-center gap-1">
+                <TrendIcon
+                  className={`w-3 h-3 ${kpi.trendUp ? 'text-green-600' : 'text-red-600'}`}
+                />
+                <span
+                  className={`text-xs font-medium ${
+                    kpi.trendUp ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {kpi.trend}
+                </span>
+                <span className="text-xs text-muted-foreground">vs last month</span>
+              </div>
             </div>
           </div>
         )
