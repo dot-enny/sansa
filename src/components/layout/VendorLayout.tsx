@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import SidebarVendor from '../organisms/vendor/SidebarVendor'
-import HeaderVendorDashboard from '../organisms/vendor/HeaderVendorDashboard'
+// import HeaderVendorDashboard from '../organisms/vendor/HeaderVendorDashboard'
 
 const VendorLayout: React.FC = () => {
-  const [showHeader, setShowHeader] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  // const [showHeader, setShowHeader] = useState(true)
+  // const [lastScrollY, setLastScrollY] = useState(0)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down - hide header
-        setShowHeader(false)
-      } else {
-        // Scrolling up - show header
-        setShowHeader(true)
-      }
+  //     if (currentScrollY > lastScrollY && currentScrollY > 100) {
+  //       // Scrolling down - hide header
+  //       setShowHeader(false)
+  //     } else {
+  //       // Scrolling up - show header
+  //       setShowHeader(true)
+  //     }
 
-      setLastScrollY(currentScrollY)
-    }
+  //     setLastScrollY(currentScrollY)
+  //   }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+  //   window.addEventListener('scroll', handleScroll, { passive: true })
+  //   return () => window.removeEventListener('scroll', handleScroll)
+  // }, [lastScrollY])
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,7 +36,7 @@ const VendorLayout: React.FC = () => {
       {/* Content Area with Header and Main */}
       <div className="ml-72">
         {/* Sticky Header - Auto-hides on scroll */}
-        <HeaderVendorDashboard showHeader={showHeader} />
+        {/* <HeaderVendorDashboard showHeader={showHeader} /> */}
 
         {/* Main Content */}
         <main className="p-8 min-h-scree">
