@@ -19,11 +19,12 @@ import AccountPage from './pages/AccountPage'
 import CheckoutPage from './pages/CheckoutPage'
 import VendorLayout from './components/layout/VendorLayout'
 import AdminLayout from './admin/layout/AdminLayout'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import CartPage from './pages/CartPage'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import WishlistPage from './pages/WishlistPage'
+import LenderDashboard from './pages/lender/LenderDashboard'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,13 @@ const router = createBrowserRouter([
       { path: 'manage-products', element: <ManageProducts /> },
       { path: 'orders', element: <VendorOrders /> },
     ],
+  },
+  { 
+    path: '/lender-dashboard', 
+    element: <Outlet />,
+    children: [
+      { index: true, element: <LenderDashboard /> }
+    ]
   },
   // Admin routes use the admin layout
   {
