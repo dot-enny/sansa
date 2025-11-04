@@ -26,6 +26,7 @@ import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import WishlistPage from './pages/WishlistPage'
 import LenderDashboard from './pages/lender/LenderDashboard'
+import Investments from './pages/lender/Investments'
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,8 @@ const router = createBrowserRouter([
     path: '/lender-dashboard', 
     element: <LenderLayout />,
     children: [
-      { index: true, element: <LenderDashboard /> }
+      { index: true, element: <LenderDashboard /> },
+      { path: 'investments', element: <Investments /> },
     ]
   },
   // Admin routes use the admin layout
