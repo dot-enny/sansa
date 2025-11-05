@@ -54,7 +54,7 @@ export const InvestmentsTable: React.FC<InvestmentsTableProps> = ({
 
   return (
     <div className="relative rounded-xl bg-card/60 backdrop-blur-xl border border-border/60 shadow-xl shadow-black/10 overflow-hidden">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full">
           <thead className="border-b border-border/60 bg-muted/50">
             <tr>

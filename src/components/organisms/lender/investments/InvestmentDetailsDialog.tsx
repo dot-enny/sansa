@@ -54,7 +54,7 @@ export const InvestmentDetailsDialog: React.FC<InvestmentDetailsDialogProps> = (
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
         <DialogHeader>
           <DialogTitle className="text-2xl">Investment Details</DialogTitle>
         </DialogHeader>

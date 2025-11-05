@@ -82,7 +82,7 @@ export default function Analytics() {
 
         {/* Tab Navigation */}
         <div className="shrink-0 px-4 sm:px-6 mt-4">
-          <div className="flex items-center gap-1 bg-card/40 backdrop-blur-xl rounded-xl p-1 border border-white/40 overflow-x-auto">
+          <div className="flex items-center gap-1 bg-card/40 backdrop-blur-xl rounded-xl p-1 border border-white/40 overflow-x-auto custom-scrollbar-minimal">
             {tabs.map((tab) => {
               const Icon = tab.icon
               return (
@@ -104,7 +104,7 @@ export default function Analytics() {
         </div>
 
         {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 custom-scrollbar">
           {activeTab === 'overview' && (
             <div className="space-y-4 sm:space-y-6">
               {/* Performance Overview */}
