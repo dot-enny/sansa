@@ -42,16 +42,16 @@ export default function Analytics() {
   ]
 
   return (
-    <div className="h-[calc(100vh-4rem)] overflow-hidden bg-background">
+    <div className="relative min-h-screen bg-background pb-12">
       {/* Ambient backgrounds */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative h-full flex flex-col max-w-[1600px] mx-auto">
-        {/* Compact Header */}
-        <div className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-6 pb-0">
+      <div className="relative max-w-[1600px] mx-auto">
+        {/* Header - Scrolls naturally */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-6 pt-4 sm:pt-6 pb-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold">Analytics & Insights</h1>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -80,8 +80,8 @@ export default function Analytics() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="shrink-0 px-4 sm:px-6 mt-4">
+        {/* Sticky Tab Navigation - Sticks to top after scrolling past header */}
+        <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-xl border-b border-border/40 px-4 sm:px-6 py-3">
           <div className="flex items-center gap-1 bg-card/40 backdrop-blur-xl rounded-xl p-1 border border-white/40 overflow-x-auto custom-scrollbar-minimal">
             {tabs.map((tab) => {
               const Icon = tab.icon
@@ -103,8 +103,8 @@ export default function Analytics() {
           </div>
         </div>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 custom-scrollbar">
+        {/* Content Area - Natural scrolling */}
+        <div className="px-4 sm:px-6 py-6">
           {activeTab === 'overview' && (
             <div className="space-y-4 sm:space-y-6">
               {/* Performance Overview */}

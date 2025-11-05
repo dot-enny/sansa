@@ -26,31 +26,58 @@ export default function Documents() {
   } = useDocuments()
 
   return (
-    <div className="h-[calc(100vh-4rem)] overflow-hidden bg-background">
+    <div className="relative min-h-screen bg-background pb-12">
       {/* Ambient backgrounds */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative h-full flex flex-col max-w-[1600px] mx-auto">
-        {/* Compact Header */}
-        <div className="shrink-0 px-4 sm:px-6 py-4 pb-0">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">Documents</h1>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              Manage your investment agreements, receipts, and reports
-            </p>
+      <div className="relative max-w-[1600px] mx-auto">
+        {/* Header with inline stats - Scrolls naturally */}
+        <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold">Documents</h1>
+              <p className="text-sm text-muted-foreground mt-0.5">
+                Manage your investment agreements, receipts, and reports
+              </p>
+            </div>
+
+            {/* Compact inline stats for large screens */}
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card/40 backdrop-blur-xl border border-border/40">
+                <FileText className="w-4 h-4 text-primary" />
+                <div>
+                  <div className="text-xs text-muted-foreground">Total</div>
+                  <div className="text-sm font-semibold">{stats.total}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card/40 backdrop-blur-xl border border-border/40">
+                <div className="w-2 h-2 rounded-full bg-green-500" />
+                <div>
+                  <div className="text-xs text-muted-foreground">Active</div>
+                  <div className="text-sm font-semibold">{stats.active}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card/40 backdrop-blur-xl border border-border/40">
+                <div className="w-2 h-2 rounded-full bg-amber-500" />
+                <div>
+                  <div className="text-xs text-muted-foreground">Pending</div>
+                  <div className="text-sm font-semibold">{stats.pending}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Full stats for mobile/tablet */}
+          <div className="lg:hidden">
+            <DocumentStats stats={stats} />
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="shrink-0 px-4 sm:px-6 py-4">
-          <DocumentStats stats={stats} />
-        </div>
-
-        {/* Filters */}
-        <div className="shrink-0 px-4 sm:px-6 pb-4">
+        {/* Sticky Filters - Sticks to top after scrolling past header */}
+        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-xl border-b border-border/40 px-4 sm:px-6 py-3">
           <DocumentFilters
             searchQuery={searchQuery}
             onSearchChange={handleSearch}
@@ -68,8 +95,8 @@ export default function Documents() {
           />
         </div>
 
-        {/* Scrollable Documents Grid/List */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6 custom-scrollbar">
+        {/* Documents Grid/List - Natural scrolling */}
+        <div className="px-4 sm:px-6 py-6">
           {documents.length > 0 ? (
             <div
               className={

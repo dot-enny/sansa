@@ -150,31 +150,45 @@ All new pages MUST follow these compact spacing and sizing guidelines to ensure 
 - **Buttons**: Use `rounded-md` or `rounded-lg`
 - **Icon Containers**: Use `rounded-lg` or `rounded-xl`
 
-**Height-Constrained Layouts:**
+**Sticky Header Layouts with Natural Scrolling:**
 
-All dashboard pages should use height-constrained layouts to prevent overflow:
+All dashboard pages should use **sticky header patterns** instead of height-constrained layouts for better UX:
 
 ```tsx
-// Main page container
-<div className="h-[calc(100vh-4rem)] overflow-hidden">
-  <div className="relative h-full flex flex-col">
-    {/* Fixed Header - doesn't scroll */}
-    <div className="shrink-0 px-4 sm:px-6 py-4">
+// Main page container - Natural scrolling
+<div className="relative min-h-screen bg-background pb-12">
+  {/* Ambient backgrounds */}
+  <div className="fixed inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
+  </div>
+
+  <div className="relative max-w-[1600px] mx-auto">
+    {/* Header - Scrolls naturally with content */}
+    <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4">
       <h1 className="text-2xl sm:text-3xl font-bold">Page Title</h1>
+      <p className="text-sm text-muted-foreground mt-0.5">Description</p>
     </div>
     
-    {/* Fixed Stats/Filters - doesn't scroll */}
-    <div className="shrink-0 px-4 sm:px-6 py-4">
-      <StatsComponent />
+    {/* Sticky Navigation/Filters - Sticks to top after header scrolls past */}
+    <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-xl border-b border-border/40 px-4 sm:px-6 py-3">
+      <NavigationOrFilters />
     </div>
     
-    {/* Scrollable Content - main content area */}
-    <div className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6 custom-scrollbar">
+    {/* Content - Natural scrolling, not height-constrained */}
+    <div className="px-4 sm:px-6 py-6">
       <ContentComponents />
     </div>
   </div>
 </div>
 ```
+
+**Why Sticky Headers Are Better:**
+- ✅ Content can naturally expand without being cut off
+- ✅ Header scrolls away to maximize content space
+- ✅ Important controls (tabs/filters) stick for easy access
+- ✅ No awkward nested scrollbars
+- ✅ Works better on mobile devices
+- ✅ More intuitive user experience
 
 **Custom Scrollbar Usage:**
 
