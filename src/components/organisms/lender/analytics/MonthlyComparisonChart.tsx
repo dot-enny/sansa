@@ -10,10 +10,10 @@ interface MonthlyComparisonProps {
 
 export default function MonthlyComparisonChart({ data }: MonthlyComparisonProps) {
   return (
-    <div className="bg-card/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-black/5">
-      <h3 className="text-lg font-semibold mb-6">Monthly Performance Comparison</h3>
+    <div className="bg-card/60 backdrop-blur-xl rounded-xl p-4 sm:p-6 border border-white/60 shadow-lg shadow-black/5">
+      <h3 className="text-base font-semibold mb-4">Monthly Performance</h3>
 
-      <div className="h-[350px]">
+      <div className="h-[280px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data as any}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.1} />

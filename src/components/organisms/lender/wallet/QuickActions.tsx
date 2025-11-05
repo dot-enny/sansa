@@ -21,10 +21,11 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
         {/* Deposit */}
         <Button
           onClick={onDeposit}
-          className="flex-col h-auto py-4 gap-2 bg-linear-to-br from-green-500/20 to-green-600/10 hover:from-green-500/30 hover:to-green-600/20 text-green-700 hover:text-green-800 border border-green-500/20 hover:border-green-500/40 shadow-md shadow-green-500/10 hover:shadow-lg hover:shadow-green-500/20 transition-all hover:-translate-y-0.5"
+          variant="outline"
+          className="flex-col h-auto py-4 gap-2 bg-green-50 hover:bg-green-100 text-green-700 hover:text-green-800 border-green-200 hover:border-green-300 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
         >
-          <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
-            <Plus className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-linear-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/20">
+            <Plus className="w-5 h-5 text-white" />
           </div>
           <span className="text-xs font-semibold">Deposit</span>
         </Button>

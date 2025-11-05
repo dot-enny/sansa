@@ -27,17 +27,17 @@ export default function RiskAnalysis({ metrics }: RiskAnalysisProps) {
   const overallLevel = getOverallRiskLevel(overallScore)
 
   return (
-    <div className="bg-card/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-black/5">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold">Risk Analysis</h3>
+    <div className="bg-card/60 backdrop-blur-xl rounded-xl p-4 sm:p-6 border border-white/60 shadow-lg shadow-black/5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-base font-semibold">Risk Analysis</h3>
         
         {/* Overall risk score */}
         <div className="text-right">
-          <p className="text-sm text-muted-foreground mb-1">Overall Risk Score</p>
+          <p className="text-xs text-muted-foreground mb-1">Overall Risk Score</p>
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold">{overallScore.toFixed(1)}</span>
+            <span className="text-xl font-bold">{overallScore.toFixed(1)}</span>
             <span
-              className={`text-xs font-medium px-2 py-1 rounded-full border ${getRiskLevelColor(
+              className={`text-xs font-medium px-2 py-0.5 rounded-full border ${getRiskLevelColor(
                 overallLevel
               )}`}
             >
@@ -47,7 +47,7 @@ export default function RiskAnalysis({ metrics }: RiskAnalysisProps) {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {metrics.map((metric, index) => {
           const Icon = riskIcons[metric.category as keyof typeof riskIcons] || Shield
           const percentage = getRiskScorePercentage(metric.score, metric.maxScore)
@@ -55,17 +55,17 @@ export default function RiskAnalysis({ metrics }: RiskAnalysisProps) {
           return (
             <div
               key={index}
-              className="p-4 rounded-xl bg-card/40 border border-white/40 hover:bg-card/60 transition-colors"
+              className="p-3 rounded-lg bg-card/40 border border-white/40 hover:bg-card/60 transition-colors"
             >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
-                  <Icon className="w-5 h-5 text-white" />
+              <div className="flex items-start gap-2.5 mb-2.5">
+                <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+                  <Icon className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h4 className="font-medium">{metric.category}</h4>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-sm font-semibold">
+                    <h4 className="text-sm font-medium">{metric.category}</h4>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-xs font-semibold">
                         {metric.score.toFixed(1)}/{metric.maxScore}
                       </span>
                       <span
@@ -77,10 +77,10 @@ export default function RiskAnalysis({ metrics }: RiskAnalysisProps) {
                       </span>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">{metric.description}</p>
+                  <p className="text-xs text-muted-foreground mb-2">{metric.description}</p>
                   
                   {/* Progress bar */}
-                  <Progress value={percentage} className="h-2" />
+                  <Progress value={percentage} className="h-1.5" />
                 </div>
               </div>
             </div>

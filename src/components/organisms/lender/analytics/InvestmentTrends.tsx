@@ -40,10 +40,10 @@ export default function InvestmentTrends({
   const dateRangeOptions: DateRangeOption[] = ['3M', '6M', '1Y', 'ALL']
 
   return (
-    <div className="bg-card/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-black/5">
+    <div className="bg-card/60 backdrop-blur-xl rounded-xl p-4 sm:p-6 border border-white/60 shadow-lg shadow-black/5">
       {/* Header with controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h3 className="text-lg font-semibold">Investment Trends</h3>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <h3 className="text-base font-semibold">Investment Trends</h3>
 
         <div className="flex items-center gap-2">
           {/* Date range selector */}
@@ -64,7 +64,7 @@ export default function InvestmentTrends({
       </div>
 
       {/* Legend toggles */}
-      <div className="flex flex-wrap items-center gap-4 mb-6">
+      <div className="flex flex-wrap items-center gap-3 mb-4">
         <button
           onClick={onToggleNetValue}
           className="flex items-center gap-2 text-sm transition-opacity hover:opacity-100"
@@ -92,7 +92,7 @@ export default function InvestmentTrends({
       </div>
 
       {/* Chart */}
-      <div className="h-[400px]">
+      <div className="h-[300px] sm:h-[350px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data as any}>
             <defs>

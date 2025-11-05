@@ -10,20 +10,20 @@ interface PortfolioBreakdownProps {
 
 export default function PortfolioBreakdown({ data }: PortfolioBreakdownProps) {
   return (
-    <div className="bg-card/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-black/5">
-      <h3 className="text-lg font-semibold mb-6">Portfolio Breakdown</h3>
+    <div className="bg-card/60 backdrop-blur-xl rounded-xl p-4 sm:p-6 border border-white/60 shadow-lg shadow-black/5">
+      <h3 className="text-base font-semibold mb-4">Portfolio Breakdown</h3>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Pie Chart */}
-        <div className="h-[300px]">
+        <div className="h-[250px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={data as any}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                innerRadius={50}
+                outerRadius={85}
                 paddingAngle={2}
                 dataKey="value"
               >
@@ -63,11 +63,11 @@ export default function PortfolioBreakdown({ data }: PortfolioBreakdownProps) {
         </div>
 
         {/* Legend & Details */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {data.map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 rounded-xl bg-card/40 border border-white/40 hover:bg-card/60 transition-colors"
+              className="flex items-center justify-between p-2.5 rounded-lg bg-card/40 border border-white/40 hover:bg-card/60 transition-colors"
             >
               <div className="flex items-center gap-3 flex-1">
                 <div
