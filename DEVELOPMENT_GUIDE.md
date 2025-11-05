@@ -112,6 +112,151 @@ For each feature/page, create:
 - **Labels**: text-muted-foreground
 - **Values**: font-semibold or font-bold
 
+#### Compact UI Specifications
+
+**Mandatory Compact Design System** (Applied to all new pages):
+
+All new pages MUST follow these compact spacing and sizing guidelines to ensure consistent, modern, and space-efficient UI:
+
+**Spacing Guidelines:**
+- **Card Padding**: Use `p-3` or `p-4` instead of `p-6`
+- **Section Gaps**: Use `gap-2`, `gap-3`, or `gap-4` instead of `gap-6`
+- **Vertical Spacing**: Use `space-y-2`, `space-y-3` instead of `space-y-4` or higher
+- **Grid Gaps**: Use `gap-3` or `gap-4` instead of `gap-6`
+- **Page Padding**: Use `px-4 sm:px-6` and `py-4` instead of `px-6` and `py-6`
+
+**Component Sizing:**
+- **Icons**: Use `w-7 h-7` or `w-8 h-8` instead of `w-10 h-10` or `w-12 h-12`
+- **Icon Containers**: Use `w-10 h-10` or `w-12 h-12` instead of `w-14 h-14` or `w-16 h-16`
+- **Buttons**: Use `h-9` or `h-10` instead of `h-12` or larger
+- **Input Fields**: Standard height `h-10`, compact spacing
+
+**Chart Sizing:**
+- **Default Chart Height**: `h-[250px]` to `h-[300px]` (avoid `h-[400px]` or larger)
+- **Large Charts**: Maximum `h-[350px]` for emphasis
+- **Small Charts**: `h-[200px]` to `h-[250px]` for dashboards
+- **Responsive Charts**: Use `h-[250px] sm:h-[300px]` pattern
+
+**Text Sizing:**
+- **Page Titles**: Use `text-2xl sm:text-3xl` instead of `text-3xl sm:text-4xl`
+- **Section Headings**: Use `text-base sm:text-lg` instead of `text-lg sm:text-xl`
+- **Card Titles**: Use `text-sm sm:text-base` or `text-base`
+- **Body Text**: Default to `text-sm`
+- **Labels**: Use `text-xs` or `text-sm`
+- **Values**: Use `text-lg` or `text-xl` instead of `text-2xl` or larger
+
+**Border Radius:**
+- **Cards**: Use `rounded-lg` or `rounded-xl` instead of `rounded-2xl`
+- **Buttons**: Use `rounded-md` or `rounded-lg`
+- **Icon Containers**: Use `rounded-lg` or `rounded-xl`
+
+**Height-Constrained Layouts:**
+
+All dashboard pages should use height-constrained layouts to prevent overflow:
+
+```tsx
+// Main page container
+<div className="h-[calc(100vh-4rem)] overflow-hidden">
+  <div className="relative h-full flex flex-col">
+    {/* Fixed Header - doesn't scroll */}
+    <div className="shrink-0 px-4 sm:px-6 py-4">
+      <h1 className="text-2xl sm:text-3xl font-bold">Page Title</h1>
+    </div>
+    
+    {/* Fixed Stats/Filters - doesn't scroll */}
+    <div className="shrink-0 px-4 sm:px-6 py-4">
+      <StatsComponent />
+    </div>
+    
+    {/* Scrollable Content - main content area */}
+    <div className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6 custom-scrollbar">
+      <ContentComponents />
+    </div>
+  </div>
+</div>
+```
+
+**Custom Scrollbar Usage:**
+
+Always apply custom scrollbar classes to scrollable content areas:
+
+```tsx
+// Primary scrollbar - for main content areas
+className="overflow-y-auto custom-scrollbar"
+
+// Minimal scrollbar - for nested scrollable areas
+className="overflow-x-auto custom-scrollbar-minimal"
+```
+
+The custom scrollbar classes are defined in `index.css`:
+- `.custom-scrollbar`: 6px width, subtle gray color
+- `.custom-scrollbar-minimal`: 4px width, very subtle
+- Global `html` scrollbar: 8px width
+
+**Tab-Based Navigation Pattern:**
+
+For content-heavy pages, use tab-based navigation to improve accessibility:
+
+```tsx
+const [activeTab, setActiveTab] = useState('overview')
+
+// Tab buttons
+<div className="flex gap-1 sm:gap-2 overflow-x-auto custom-scrollbar-minimal pb-2">
+  <Button
+    variant={activeTab === 'overview' ? 'default' : 'ghost'}
+    onClick={() => setActiveTab('overview')}
+    className="h-9 whitespace-nowrap"
+  >
+    <Icon className="w-4 h-4 mr-2" />
+    Overview
+  </Button>
+  {/* More tabs... */}
+</div>
+
+// Tab content
+<div className="flex-1 overflow-y-auto custom-scrollbar">
+  {activeTab === 'overview' && <OverviewContent />}
+  {activeTab === 'details' && <DetailsContent />}
+</div>
+```
+
+**Responsive Breakpoints:**
+
+Use consistent responsive patterns:
+- **Mobile First**: Base styles for mobile
+- **sm (640px)**: Tablet adjustments
+- **lg (1024px)**: Desktop layouts
+- **xl (1280px)**: Large desktop optimizations
+
+Example:
+```tsx
+className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+className="text-2xl sm:text-3xl"
+className="p-3 sm:p-4"
+```
+
+**Empty State Design:**
+
+Consistent empty state pattern:
+```tsx
+<div className="flex flex-col items-center justify-center py-16 px-4">
+  <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-4">
+    <Icon className="w-8 h-8 text-muted-foreground" />
+  </div>
+  <h3 className="text-lg font-semibold mb-2">No items found</h3>
+  <p className="text-sm text-muted-foreground text-center max-w-md">
+    Description text here.
+  </p>
+</div>
+```
+
+**Benefits of Compact Design:**
+- **Better Information Density**: More content visible without scrolling
+- **Modern Aesthetic**: Cleaner, more professional appearance
+- **Improved Performance**: Smaller DOM elements, faster rendering
+- **Better Mobile Experience**: More content fits on smaller screens
+- **Reduced Eye Strain**: Less vertical scrolling required
+
 #### Form Inputs Style
 ```css
 /* Underline Style - Preferred */
@@ -360,16 +505,59 @@ export const getStatusColor = (status: Status): string => {
    - Trend indicators
    - Ambient backgrounds
 
+2. **Investments** (`/lender-dashboard/investments`)
+   - **Fully Implemented with Clean Architecture**
+   - Data: `mockInvestments.ts` (investments, transactions, portfolio summary)
+   - Utils: `investmentUtils.ts` (30+ utility functions)
+   - Hook: `useInvestments.ts` (filters, search, dialogs)
+   - Components: InvestmentSummaryCards, InvestmentsTable, InvestmentDetailsDialog
+   - Table-based layout with search and filters
+   - Investment details modal
+   - Transaction history
+   - Portfolio metrics
+
+3. **Wallet** (`/lender-dashboard/wallet`)
+   - **Fully Implemented with Clean Architecture**
+   - Data: `mockWalletData.ts` (balance, transactions, monthly stats)
+   - Utils: `walletUtils.ts` (formatting, filtering, grouping)
+   - Hook: `useWallet.ts` (filters, period selection, dialogs)
+   - Components: BalanceCard, QuickActions, MonthlyOverview, RecentTransactions, TransactionDetailsDialog
+   - 4-section layout: Balance, Quick Actions, Monthly Stats, Transactions
+   - Transaction filtering and grouping
+   - Month-by-month comparison
+   - Deposit/Withdraw/Transfer actions
+
+4. **Analytics** (`/lender-dashboard/analytics`)
+   - **Fully Implemented with Tab-Based Navigation & Compact Design**
+   - Data: `mockAnalyticsData.ts` (12 months trends, portfolio breakdown, risk metrics)
+   - Utils: `analyticsUtils.ts` (30+ formatting, calculation, export functions)
+   - Hook: `useAnalytics.ts` (date range filtering, chart toggles, export)
+   - Components: PerformanceOverview, PortfolioBreakdown, InvestmentTrends, RiskAnalysis, TopPerformers, MonthlyComparisonChart
+   - **Height-constrained layout** with tab navigation (Overview, Portfolio, Performance, Risk)
+   - **Compact spacing** throughout (p-3/p-4, gap-2/gap-3)
+   - **Custom scrollbar** applied
+   - Interactive charts with Recharts
+   - Period comparison (3M, 6M, 1Y, ALL)
+   - Export functionality
+
+5. **Documents** (`/lender-dashboard/documents`)
+   - **Fully Implemented with Grid/List Views & Compact Design**
+   - Data: `mockDocuments.ts` (15 documents, 8 types, 4 statuses)
+   - Utils: `documentsUtils.ts` (30+ utility functions for search, filter, sort, group)
+   - Hook: `useDocuments.ts` (search, filters, view mode, sort, preview)
+   - Components: DocumentStats, DocumentFilters, DocumentCard
+   - **Height-constrained layout** with scrollable grid/list
+   - Grid and list view modes
+   - Search with type/status filters
+   - Sort by date, name, size, type
+   - Document preview and download
+   - Empty state handling
+
 **Lender Layout**:
 - Reuses generic DashboardLayout + DashboardSidebar
 - Active Investments metric
 - Navigation: Dashboard, Investments, Wallet, Analytics, Documents
-
-**Placeholder Routes** (Not Yet Implemented):
-- `/lender-dashboard/investments` - Investment list & management
-- `/lender-dashboard/wallet` - Balance & transactions
-- `/lender-dashboard/analytics` - Performance charts
-- `/lender-dashboard/documents` - Agreements & receipts
+- All routes fully implemented
 
 ### ✅ Shared/Reusable Components
 

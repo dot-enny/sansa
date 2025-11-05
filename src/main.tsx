@@ -29,6 +29,7 @@ import LenderDashboard from './pages/lender/LenderDashboard'
 import Investments from './pages/lender/Investments'
 import Wallet from './pages/lender/Wallet'
 import Analytics from './pages/lender/Analytics'
+import Documents from './pages/lender/Documents'
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
       { path: 'investments', element: <Investments /> },
       { path: 'wallet', element: <Wallet /> },
       { path: 'analytics', element: <Analytics /> },
+      { path: 'documents', element: <Documents /> },
     ]
   },
   // Admin routes use the admin layout
