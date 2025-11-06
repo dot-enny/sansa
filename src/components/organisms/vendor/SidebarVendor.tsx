@@ -5,22 +5,22 @@ import { vendorInfo } from '@/data/vendorData'
 const links = [
   {
     name: "Dashboard",
-    to: "/dashboard",
+    to: "/vendor-dashboard",
     icon: <LayoutDashboard className="w-5 h-5" />,
   },
   {
     name: "Add Product",
-    to: "/dashboard/add-product",
+    to: "/vendor-dashboard/add-product",
     icon: <PlusCircle className="w-5 h-5" />,
   },
   {
     name: "Manage Products",
-    to: "/dashboard/manage-products",
+    to: "/vendor-dashboard/manage-products",
     icon: <Boxes className="w-5 h-5" />,
   },
   {
     name: "Orders",
-    to: "/dashboard/orders",
+    to: "/vendor-dashboard/orders",
     icon: <ShoppingBag className="w-5 h-5" />,
   },
 ];

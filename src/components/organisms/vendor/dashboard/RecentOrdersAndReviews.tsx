@@ -23,7 +23,7 @@ const RecentOrders = ({ recentOrders }: { recentOrders: RecentOrder[] }) => {
             {/* Minimal header */}
             <div className="flex items-center justify-between px-1">
                 <h4 className="font-semibold text-foreground/70">Recent Orders</h4>
-                <Link to="/dashboard/orders" className="text-xs text-primary font-medium hover:underline">
+                <Link to="/vendor-dashboard/orders" className="text-xs text-primary font-medium hover:underline">
                     View all →
                 </Link>
             </div>

@@ -22,7 +22,7 @@ export const EmptyState = ({ hasFilters }: EmptyStateProps) => {
       </p>
       {!hasFilters && (
         <Button asChild>
-          <Link to="/dashboard/add-product">Add Your First Product</Link>
+          <Link to="/vendor-dashboard/add-product">Add Your First Product</Link>
         </Button>
       )}
     </div>

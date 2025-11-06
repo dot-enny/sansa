@@ -42,7 +42,7 @@ export const ProductListItem = ({
         {/* Name & Category */}
         <div className="space-y-1">
           <Link
-            to={`/dashboard/products/${product.id}`}
+            to={`/vendor-dashboard/products/${product.id}`}
             className="text-base font-semibold text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
           >
             {product.name}
@@ -91,7 +91,7 @@ export const ProductListItem = ({
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link
-                to={`/dashboard/products/${product.id}/edit`}
+                to={`/vendor-dashboard/products/${product.id}/edit`}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <Edit2 className="w-4 h-4" />

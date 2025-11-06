@@ -47,7 +47,7 @@ const router = createBrowserRouter([
   },
   // Vendor dashboard routes - authenticated vendor manages their own store
   {
-    path: '/dashboard',
+    path: '/vendor-dashboard',
     element: <VendorLayout />,
     children: [
       { index: true, element: <VendorDashboard /> },
