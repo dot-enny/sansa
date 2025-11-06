@@ -18,12 +18,18 @@ import OrderPage from './pages/orders/OrderPage'
 import AccountPage from './pages/AccountPage'
 import CheckoutPage from './pages/CheckoutPage'
 import VendorLayout from './components/layout/VendorLayout'
+import LenderLayout from './components/layout/LenderLayout'
 import AdminLayout from './admin/layout/AdminLayout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import CartPage from './pages/CartPage'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import WishlistPage from './pages/WishlistPage'
+import LenderDashboard from './pages/lender/LenderDashboard'
+import Investments from './pages/lender/Investments'
+import Wallet from './pages/lender/Wallet'
+import Analytics from './pages/lender/Analytics'
+import Documents from './pages/lender/Documents'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +61,18 @@ const router = createBrowserRouter([
       { path: 'manage-products', element: <ManageProducts /> },
       { path: 'orders', element: <VendorOrders /> },
     ],
+  },
+  // Lender dashboard routes - authenticated lender manages investments
+  { 
+    path: '/lender-dashboard', 
+    element: <LenderLayout />,
+    children: [
+      { index: true, element: <LenderDashboard /> },
+      { path: 'investments', element: <Investments /> },
+      { path: 'wallet', element: <Wallet /> },
+      { path: 'analytics', element: <Analytics /> },
+      { path: 'documents', element: <Documents /> },
+    ]
   },
   // Admin routes use the admin layout
   {
