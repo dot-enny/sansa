@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayoutDashboard, TrendingUp, Wallet, FileText, PieChart } from 'lucide-react'
+import { LayoutDashboard, TrendingUp, Wallet, FileText, PieChart, Sparkles } from 'lucide-react'
 import DashboardLayout from './DashboardLayout'
 import DashboardSidebar from '../organisms/shared/DashboardSidebar'
 import { mockLenderInfo } from '@/data/lender/mockLenderData'
@@ -11,6 +11,11 @@ const LenderLayout: React.FC = () => {
       name: 'Dashboard',
       to: '/lender-dashboard',
       icon: <LayoutDashboard className="w-5 h-5" />,
+    },
+    {
+      name: 'Opportunities',
+      to: '/lender-dashboard/opportunities',
+      icon: <Sparkles className="w-5 h-5" />,
     },
     {
       name: 'Investments',

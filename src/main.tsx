@@ -30,6 +30,7 @@ import Investments from './pages/lender/Investments'
 import Wallet from './pages/lender/Wallet'
 import Analytics from './pages/lender/Analytics'
 import Documents from './pages/lender/Documents'
+import Opportunities from './pages/lender/Opportunities'
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
     element: <LenderLayout />,
     children: [
       { index: true, element: <LenderDashboard /> },
+      { path: 'opportunities', element: <Opportunities /> },
       { path: 'investments', element: <Investments /> },
       { path: 'wallet', element: <Wallet /> },
       { path: 'analytics', element: <Analytics /> },
