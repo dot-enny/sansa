@@ -44,8 +44,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, width }) => {
     <div
       role="button"
       tabIndex={0}
-      onClick={() => navigate(`/product/${product.id}`)}
-      onKeyDown={(e) => { if (e.key === 'Enter') navigate(`/product/${product.id}`) }}
+      onClick={() => navigate(`/shop/product/${product.id}`)}
+      onKeyDown={(e) => { if (e.key === 'Enter') navigate(`/shop/product/${product.id}`) }}
       className={`group relative flex flex-col overflow-hidden w-full rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 cursor-pointer`}
       style={
         width

@@ -63,7 +63,7 @@ export default function EcomHeader() {
         
 
         {/* Logo */}
-        <Link to="/" className="flex shrink-0 items-center gap-2">
+        <Link to="/shop" className="flex shrink-0 items-center gap-2">
           <div className="h-8 w-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 shadow-md" />
           <span className="text-xl font-bold tracking-tight text-gray-900">Bevesi</span>
         </Link>
@@ -109,7 +109,7 @@ export default function EcomHeader() {
 
         {/* Action Icons */}
         <nav className="ml-2 hidden items-center gap-4 xl:gap-6 lg:flex">
-          <Link to="/wishlist" className="group relative flex flex-col items-center gap-1">
+          <Link to="/shop/wishlist" className="group relative flex flex-col items-center gap-1">
             <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
               <HiOutlineHeart className="text-xl" />
             </span>
@@ -129,7 +129,7 @@ export default function EcomHeader() {
             <span className="text-xs font-medium text-gray-600">Reorder</span>
           </div>
           
-          <Link to="/cart" className="group relative flex flex-col items-center gap-1">
+          <Link to="/shop/cart" className="group relative flex flex-col items-center gap-1">
             <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
               <HiOutlineShoppingCart className="text-xl" />
             </span>
@@ -146,7 +146,7 @@ export default function EcomHeader() {
         </nav>
 
         {/* Mobile cart icon */}
-        <Link to="/cart" className="relative flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden">
+        <Link to="/shop/cart" className="relative flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden">
           <HiOutlineShoppingCart className="text-2xl" />
           <span className="absolute right-0 top-0 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-bold text-white shadow-md">
             {totalItems}
@@ -189,7 +189,7 @@ export default function EcomHeader() {
           <div className="fixed left-0 top-0 z-50 h-[calc(100vh-64px)] w-full max-w-sm overflow-y-auto bg-white shadow-2xl lg:hidden">
             {/* Header: logo + close */}
             <div className="flex items-center justify-between border-b p-4">
-              <Link to="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/shop" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                 <div className="h-8 w-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500" />
                 <span className="text-lg font-bold text-gray-900">Bevesi</span>
               </Link>
@@ -207,7 +207,7 @@ export default function EcomHeader() {
               <div className="flex-1">
                 <UserProfileDropdown />
               </div>
-              <Link to="/cart" className="ml-auto flex items-center gap-2 text-sm font-medium text-gray-700" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/shop/cart" className="ml-auto flex items-center gap-2 text-sm font-medium text-gray-700" onClick={() => setMobileMenuOpen(false)}>
                 <HiOutlineShoppingCart className="text-lg text-gray-700" />
                 Cart ({totalItems})
               </Link>
@@ -216,10 +216,10 @@ export default function EcomHeader() {
             {/* Primary Navigation (important links only) */}
             <nav className="p-4">
               <div className="space-y-1">
-                <Link to="/" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/shop" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
                   Home
                 </Link>
-                <Link to="/category/electronics" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/shop/category/electronics" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
                   Electronics
                 </Link>
                 <div className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-400 cursor-not-allowed" title="Demo - Not available">

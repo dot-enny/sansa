@@ -19,7 +19,7 @@ const CartPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8">
           <Link 
-            to="/" 
+            to="/shop" 
             className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4"
           >
             <FiArrowLeft className="w-4 h-4" />
@@ -37,7 +37,7 @@ const CartPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
             <p className="text-gray-600 mb-6">Add some products to get started</p>
             <Link 
-              to="/" 
+              to="/shop" 
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               Browse Products

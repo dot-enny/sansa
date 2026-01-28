@@ -19,8 +19,8 @@ export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Get the redirect path from location state, or default to home
-  const from = (location.state as { from?: string })?.from || '/'
+  // Get the redirect path from location state, or default to shop
+  const from = (location.state as { from?: string })?.from || '/shop'
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -37,7 +37,7 @@ export default function Login() {
       if (storedUser) {
         const user = JSON.parse(storedUser)
         const roleDashboards: Record<UserRole, string> = {
-          customer: '/',
+          customer: '/shop',
           vendor: '/vendor-dashboard',
           lender: '/lender-dashboard',
           admin: '/admin',

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
 import Home from './pages/Home'
+import Landing from './pages/Landing'
 import About from './pages/About'
 import NotFound from './pages/NotFound'
 import CategoryPage from './pages/CategoryPage'
@@ -57,6 +58,12 @@ if (typeof window !== 'undefined') {
 }
 
 const router = createBrowserRouter([
+  // Landing page - public access
+  {
+    path: '/',
+    element: <Landing />,
+  },
+  
   // Auth routes - public access
   {
     path: '/login',
@@ -69,7 +76,7 @@ const router = createBrowserRouter([
   
   // Main customer-facing app
   {
-    path: '/',
+    path: '/shop',
     element: <App />,
     children: [
       { index: true, element: <Home /> },
