@@ -1,4 +1,3 @@
-import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { HiOutlineArrowRight, HiOutlineHeart, HiShoppingCart, HiStar, HiCheck } from 'react-icons/hi'
 

@@ -15,7 +15,7 @@ const AccountPage = () => {
     phone: '+234 803 123 4567' 
   })
 
-  const [addresses, setAddresses] = useState([
+  const [addresses] = useState([
     { id: 'addr_1', label: 'Home', value: '123 Main Street, Victoria Island', city: 'Lagos, Nigeria', isDefault: true },
     { id: 'addr_2', label: 'Office', value: '456 Business Plaza, Lekki Phase 1', city: 'Lagos, Nigeria', isDefault: false },
   ])

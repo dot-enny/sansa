@@ -1,4 +1,4 @@
-import type { Product } from '../components/molecules/ProductCard'
+// import type { Product } from '../components/molecules/ProductCard'
 
 export type OrderItem = {
   productId: string | number

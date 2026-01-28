@@ -23,7 +23,7 @@ type ProductCardProps = {
   className?: string
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, width, className = '' }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, width }) => {
   const { has, toggle } = useWishlist()
   const isWishlisted = has(product.id)
   const [isHovered, setIsHovered] = useState(false)
