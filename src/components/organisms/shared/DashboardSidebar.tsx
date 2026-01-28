@@ -51,11 +51,11 @@ export default function DashboardSidebar({
 const SansaBranding = () => {
   return (
     <div className="px-6 py-2 border-b border-border">
-      <div className="flex items-center justify-center">
+      <Link to="/" className="flex items-center justify-center hover:opacity-80 transition-opacity">
         <h2 className="text-sm font-bold bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent three-d-text-shadow">
           sansa
         </h2>
-      </div>
+      </Link>
     </div>
   )
 }
@@ -109,7 +109,7 @@ const Navigation = ({ links }: NavigationProps) => {
   const location = useLocation()
 
   return (
-    <nav className="flex-1 px-4 py-2 overflow-y-auto">
+    <nav className="flex-1 px-4 py-2 overflow-y-auto custom-scrollbar-minimal">
       <ul className="flex flex-col gap-1">
         {links.map((link) => {
           const isActive = location.pathname === link.to
@@ -136,6 +136,19 @@ const Navigation = ({ links }: NavigationProps) => {
           )
         })}
       </ul>
+      
+      {/* Quick Access - Link back to marketplace */}
+      <div className="mt-4 px-4 pb-4 border-t border-border pt-4">
+        <Link
+          to="/"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span>Browse Marketplace</span>
+        </Link>
+      </div>
     </nav>
   )
 }

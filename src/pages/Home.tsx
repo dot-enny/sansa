@@ -3,6 +3,7 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import CategoriesSidebar from "../components/organisms/CategoriesSidebar";
 import HeroBanner from "../components/organisms/HeroBanner";
 import ProductGrid from "../components/organisms/ProductGrid";
+import PlatformQuickAccess from "../components/PlatformQuickAccess";
 
 const Home: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -52,6 +53,11 @@ const Home: React.FC = () => {
 
         <main className="flex-1">
           <HeroBanner />
+          
+          {/* Platform Quick Access */}
+          <div className="mt-6">
+            <PlatformQuickAccess />
+          </div>
 
           {/* Additional sections can be added below: vendor carousel, featured products, promotions */}
           <section className="mt-8">

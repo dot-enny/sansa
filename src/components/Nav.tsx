@@ -1,25 +1,21 @@
 // src/components/EcomHeader.tsx
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   HiOutlineSearch,
   HiOutlineHeart,
   HiOutlineArrowUp,
-  HiOutlineUser,
   HiOutlineShoppingCart,
-  HiOutlineChevronDown,
-  HiOutlineViewGrid,
   HiOutlineMenu,
   HiOutlineX,
 } from 'react-icons/hi'
 import { useCart } from '../context/CartContext'
 import { useWishlist } from '../context/WishlistContext'
+import UserProfileDropdown from './UserProfileDropdown'
 
 const categories = ['All', 'Electronics', 'Home', 'Beauty', 'Fashion', 'Toys', 'Grocery']
 
 export default function EcomHeader() {
-  const [selectedCat, setSelectedCat] = useState('All')
-  const [shopOpen, setShopOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
@@ -30,7 +26,9 @@ export default function EcomHeader() {
   // Close popovers on outside click
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (shopRef.current && !shopRef.current.contains(e.target as Node)) setShopOpen(false)
+      if (shopRef.current && !shopRef.current.contains(e.target as Node)) {
+        // Dropdown closed
+      }
     }
     window.addEventListener('click', onClick)
     return () => window.removeEventListener('click', onClick)
@@ -122,18 +120,15 @@ export default function EcomHeader() {
               </span>
             )}
           </Link>
-          <Link to="/reorder" className="group flex flex-col items-center gap-1">
-            <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
+          
+          {/* Disabled Reorder - Demo only */}
+          <div className="group flex flex-col items-center gap-1 opacity-40 cursor-not-allowed" title="Demo - Not available">
+            <span className="rounded-full bg-gray-100 p-2 text-gray-700">
               <HiOutlineArrowUp className="text-xl" />
             </span>
-            <span className="text-xs font-medium text-gray-600 transition group-hover:text-blue-600">Reorder</span>
-          </Link>
-          <Link to="/account" className="group flex flex-col items-center gap-1">
-            <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
-              <HiOutlineUser className="text-xl" />
-            </span>
-            <span className="text-xs font-medium text-gray-600 transition group-hover:text-blue-600">Account</span>
-          </Link>
+            <span className="text-xs font-medium text-gray-600">Reorder</span>
+          </div>
+          
           <Link to="/cart" className="group relative flex flex-col items-center gap-1">
             <span className="rounded-full bg-gray-100 p-2 text-gray-700 transition group-hover:bg-blue-50 group-hover:text-blue-600">
               <HiOutlineShoppingCart className="text-xl" />
@@ -143,6 +138,11 @@ export default function EcomHeader() {
               {totalItems}
             </span>
           </Link>
+          
+          {/* User Profile Dropdown */}
+          <div className="pl-2 border-l border-gray-200">
+            <UserProfileDropdown />
+          </div>
         </nav>
 
         {/* Mobile cart icon */}
@@ -202,15 +202,14 @@ export default function EcomHeader() {
               </button>
             </div>
 
-            {/* Account / Cart shortcuts */}
+            {/* Account / Cart shortcuts - Mobile */}
             <div className="flex items-center gap-3 border-b p-4">
-              <Link to="/account" className="flex items-center gap-2 text-sm font-medium text-gray-700" onClick={() => setMobileMenuOpen(false)}>
-                <HiOutlineUser className="text-lg text-gray-700" />
-                Account
-              </Link>
+              <div className="flex-1">
+                <UserProfileDropdown />
+              </div>
               <Link to="/cart" className="ml-auto flex items-center gap-2 text-sm font-medium text-gray-700" onClick={() => setMobileMenuOpen(false)}>
                 <HiOutlineShoppingCart className="text-lg text-gray-700" />
-                Cart
+                Cart ({totalItems})
               </Link>
             </div>
 
@@ -220,18 +219,18 @@ export default function EcomHeader() {
                 <Link to="/" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
                   Home
                 </Link>
-                <Link to="/electronics" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/category/electronics" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
                   Electronics
                 </Link>
-                <Link to="/products" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                <div className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-400 cursor-not-allowed" title="Demo - Not available">
                   Shop
-                </Link>
-                <Link to="/contact" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                </div>
+                <div className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-400 cursor-not-allowed" title="Demo - Not available">
                   Contact
-                </Link>
-                <Link to="/blog" className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50" onClick={() => setMobileMenuOpen(false)}>
+                </div>
+                <div className="block rounded-lg px-4 py-3 text-base font-semibold text-gray-400 cursor-not-allowed" title="Demo - Not available">
                   Blog
-                </Link>
+                </div>
               </div>
             </nav>
 
@@ -239,16 +238,19 @@ export default function EcomHeader() {
             <div className="border-t p-4">
               <h3 className="mb-2 text-sm font-semibold text-gray-600">Categories</h3>
               <div className="grid grid-cols-2 gap-2">
-                {categories.map((c) => (
+                {categories.slice(0, 3).map((c) => (
                   <Link
                     key={c}
-                    to={`/${c.toLowerCase()}`}
+                    to={`/category/${c.toLowerCase()}`}
                     className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-center text-sm font-medium text-gray-700 hover:bg-blue-50"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {c}
                   </Link>
                 ))}
+                <div className="rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-center text-sm font-medium text-gray-400 cursor-not-allowed" title="Demo - More categories coming soon">
+                  More...
+                </div>
               </div>
             </div>
           </div>
