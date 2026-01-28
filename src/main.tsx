@@ -24,6 +24,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import CartPage from './pages/CartPage'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
+import { AuthProvider, ProtectedRoute } from './context/AuthContext'
 import WishlistPage from './pages/WishlistPage'
 import LenderDashboard from './pages/lender/LenderDashboard'
 import Investments from './pages/lender/Investments'
@@ -31,14 +32,48 @@ import Wallet from './pages/lender/Wallet'
 import Analytics from './pages/lender/Analytics'
 import Documents from './pages/lender/Documents'
 import Opportunities from './pages/lender/Opportunities'
+import Login from './pages/auth/Login'
+import Register from './pages/auth/Register'
+import { TestPage } from './pages/TestPage'
+
+// Enhanced scrollbar behavior - show scrollbar thumb while scrolling
+if (typeof window !== 'undefined') {
+  let scrollTimeout: ReturnType<typeof setTimeout>
+  
+  const handleScroll = (e: Event) => {
+    const target = e.target as HTMLElement
+    if (target.classList.contains('custom-scrollbar') || target.classList.contains('custom-scrollbar-minimal')) {
+      target.classList.add('is-scrolling')
+      
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        target.classList.remove('is-scrolling')
+      }, 1000)
+    }
+  }
+  
+  // Listen to scroll events on elements with custom scrollbar classes
+  document.addEventListener('scroll', handleScroll, true)
+}
 
 const router = createBrowserRouter([
+  // Auth routes - public access
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  
+  // Main customer-facing app
   {
     path: '/',
     element: <App />,
-      children: [
+    children: [
       { index: true, element: <Home /> },
-     { path: 'checkout', element: <CheckoutPage /> },
+      { path: 'checkout', element: <CheckoutPage /> },
       { path: 'wishlist', element: <WishlistPage /> },
       { path: 'category/:slug', element: <CategoryPage /> },
       { path: 'account', element: <AccountPage /> },
@@ -52,10 +87,15 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFound /> },
     ],
   },
-  // Vendor dashboard routes - authenticated vendor manages their own store
+  
+  // Vendor dashboard routes - protected, vendor role only
   {
     path: '/vendor-dashboard',
-    element: <VendorLayout />,
+    element: (
+      <ProtectedRoute allowedRoles={['vendor']}>
+        <VendorLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <VendorDashboard /> },
       { path: 'add-product', element: <AddProduct /> },
@@ -63,10 +103,15 @@ const router = createBrowserRouter([
       { path: 'orders', element: <VendorOrders /> },
     ],
   },
-  // Lender dashboard routes - authenticated lender manages investments
-  { 
-    path: '/lender-dashboard', 
-    element: <LenderLayout />,
+  
+  // Lender dashboard routes - protected, lender role only
+  {
+    path: '/lender-dashboard',
+    element: (
+      <ProtectedRoute allowedRoles={['lender']}>
+        <LenderLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <LenderDashboard /> },
       { path: 'opportunities', element: <Opportunities /> },
@@ -74,22 +119,31 @@ const router = createBrowserRouter([
       { path: 'wallet', element: <Wallet /> },
       { path: 'analytics', element: <Analytics /> },
       { path: 'documents', element: <Documents /> },
-    ]
+    ],
   },
-  // Admin routes use the admin layout
+  
+  // Admin routes - protected, admin role only
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [{ index: true, element: <AdminDashboard /> }],
   },
+
+  { path: '/test', element: <TestPage /> },
 ]) 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <WishlistProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
-    </WishlistProvider>
+    <AuthProvider>
+      <WishlistProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </WishlistProvider>
+    </AuthProvider>
   </StrictMode>,
 )
