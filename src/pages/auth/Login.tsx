@@ -14,6 +14,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedDemo, setSelectedDemo] = useState<string>('customer@sansa.com')
 
   const { login } = useAuth()
   const navigate = useNavigate()
@@ -53,15 +54,37 @@ export default function Login() {
 
   // Demo accounts for quick testing
   const demoAccounts = [
-    { email: 'customer@sansa.com', role: 'Customer', icon: '🛍️' },
-    { email: 'vendor@sansa.com', role: 'Vendor', icon: '🏪' },
-    { email: 'lender@sansa.com', role: 'Lender', icon: '💰' },
-    { email: 'admin@sansa.com', role: 'Admin', icon: '👑' },
+    { email: 'customer@sansa.com', role: 'Customer', icon: '🛍️', color: 'blue' },
+    { email: 'vendor@sansa.com', role: 'Vendor', icon: '🏪', color: 'purple' },
+    { email: 'lender@sansa.com', role: 'Lender', icon: '💰', color: 'green' },
+    { email: 'admin@sansa.com', role: 'Admin', icon: '👑', color: 'red' },
   ]
 
   const quickLogin = (demoEmail: string) => {
     setEmail(demoEmail)
     setPassword('password123')
+    setSelectedDemo(demoEmail)
+  }
+
+  // Get the selected role name for the button text
+  const getSelectedRole = () => {
+    const selected = demoAccounts.find(acc => acc.email === selectedDemo)
+    return selected ? selected.role : 'Customer'
+  }
+
+  // Get color classes based on selected demo
+  const getButtonColorClasses = () => {
+    const selected = demoAccounts.find(acc => acc.email === selectedDemo)
+    if (!selected) return 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+    
+    const colorMap: Record<string, string> = {
+      blue: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+      purple: 'bg-purple-600 hover:bg-purple-700 focus:ring-purple-500',
+      green: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
+      red: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+    }
+    
+    return colorMap[selected.color] || colorMap.blue
   }
 
   return (
@@ -175,9 +198,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${getButtonColorClasses()}`}
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing in...' : `Continue as ${getSelectedRole()}`}
             </button>
 
             {/* Register Link */}
@@ -196,19 +219,36 @@ export default function Login() {
           <div className="mt-6 border-t border-gray-200 pt-4">
             <p className="text-xs text-center font-semibold text-gray-700 mb-3">🎯 Quick Demo Login</p>
             <div className="grid grid-cols-2 gap-2">
-              {demoAccounts.map((account) => (
-                <button
-                  key={account.email}
-                  onClick={() => quickLogin(account.email)}
-                  className="flex items-center gap-2 px-3 py-2.5 text-xs border-2 border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-400 transition-all font-medium"
-                >
-                  <span className="text-lg">{account.icon}</span>
-                  <span className="text-gray-700">{account.role}</span>
-                </button>
-              ))}
+              {demoAccounts.map((account) => {
+                const isSelected = selectedDemo === account.email
+                const colorClasses: Record<string, string> = {
+                  blue: isSelected ? 'bg-blue-50 border-blue-500 ring-2 ring-blue-200' : 'border-gray-200 hover:bg-blue-50 hover:border-blue-400',
+                  purple: isSelected ? 'bg-purple-50 border-purple-500 ring-2 ring-purple-200' : 'border-gray-200 hover:bg-purple-50 hover:border-purple-400',
+                  green: isSelected ? 'bg-green-50 border-green-500 ring-2 ring-green-200' : 'border-gray-200 hover:bg-green-50 hover:border-green-400',
+                  red: isSelected ? 'bg-red-50 border-red-500 ring-2 ring-red-200' : 'border-gray-200 hover:bg-red-50 hover:border-red-400',
+                }
+                
+                return (
+                  <button
+                    key={account.email}
+                    onClick={() => quickLogin(account.email)}
+                    className={`relative flex items-center gap-2 px-3 py-2.5 text-xs border-2 rounded-lg transition-all font-medium ${colorClasses[account.color]}`}
+                  >
+                    {isSelected && (
+                      <div className="absolute top-1 right-1">
+                        <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                    <span className="text-lg">{account.icon}</span>
+                    <span className={isSelected ? 'text-gray-900 font-semibold' : 'text-gray-700'}>{account.role}</span>
+                  </button>
+                )
+              })}
             </div>
             <p className="text-xs text-center text-gray-500 mt-3">
-              ✨ Click any role to instantly demo • All passwords: <code className="bg-gray-100 px-2 py-0.5 rounded">password123</code>
+              ✨ Click any role to select • All passwords: <code className="bg-gray-100 px-2 py-0.5 rounded">password123</code>
             </p>
           </div>
         </div>
