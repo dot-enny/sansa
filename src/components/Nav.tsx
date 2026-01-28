@@ -64,7 +64,9 @@ export default function EcomHeader() {
 
         {/* Logo */}
         <Link to="/shop" className="flex shrink-0 items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 shadow-md" />
+          <div className="h-8 w-8 rounded-full bg-primary shadow-md flex items-center justify-center">
+            <span className="text-white font-bold text-xs">S</span>
+          </div>
           <span className="text-xl font-bold tracking-tight text-gray-900">Bevesi</span>
         </Link>
 
@@ -89,7 +91,7 @@ export default function EcomHeader() {
               className="h-full w-full px-4 text-sm text-gray-900 placeholder:text-gray-400 outline-none"
             />
             <button
-              className="flex h-full w-12 shrink-0 items-center justify-center bg-blue-600 text-white transition hover:bg-blue-700 active:scale-95"
+              className="flex h-full w-12 shrink-0 items-center justify-center bg-primary text-white transition hover:bg-primary/90 active:scale-95"
               aria-label="Search"
             >
               <HiOutlineSearch className="text-xl" />
@@ -190,7 +192,9 @@ export default function EcomHeader() {
             {/* Header: logo + close */}
             <div className="flex items-center justify-between border-b p-4">
               <Link to="/shop" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500" />
+                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                  <span className="text-white font-bold text-xs">S</span>
+                </div>
                 <span className="text-lg font-bold text-gray-900">Bevesi</span>
               </Link>
               <button

@@ -16,7 +16,7 @@ export default function WishlistPage() {
       <div className="mx-auto max-w-4xl p-6">
         <h2 className="mb-4 text-2xl font-bold">Your wishlist</h2>
         <p className="mb-6 text-gray-600">You haven't saved any items yet.</p>
-        <Link to="/shop" className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">Continue shopping</Link>
+        <Link to="/shop" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">Continue shopping</Link>
       </div>
     )
   }

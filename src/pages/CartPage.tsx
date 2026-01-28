@@ -38,7 +38,7 @@ const CartPage: React.FC = () => {
             <p className="text-gray-600 mb-6">Add some products to get started</p>
             <Link 
               to="/shop" 
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
               Browse Products
             </Link>
@@ -154,7 +154,7 @@ const CartPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <button className="w-full bg-blue-600 text-white py-3.5 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-3 shadow-sm">
+                <button className="w-full bg-primary text-white py-3.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3">
                   Proceed to Checkout
                 </button>
                 

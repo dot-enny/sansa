@@ -75,16 +75,9 @@ export default function Login() {
   // Get color classes based on selected demo
   const getButtonColorClasses = () => {
     const selected = demoAccounts.find(acc => acc.email === selectedDemo)
-    if (!selected) return 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+    if (!selected) return 'bg-primary hover:bg-primary/90 focus:ring-primary'
     
-    const colorMap: Record<string, string> = {
-      blue: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
-      purple: 'bg-purple-600 hover:bg-purple-700 focus:ring-purple-500',
-      green: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
-      red: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
-    }
-    
-    return colorMap[selected.color] || colorMap.blue
+    return 'bg-primary hover:bg-primary/90 focus:ring-primary'
   }
 
   return (
@@ -95,11 +88,13 @@ export default function Login() {
           {/* Logo & Header */}
           <div className="text-center">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="h-12 w-12 rounded-full bg-linear-to-br from-yellow-400 to-yellow-500 shadow-lg" />
-              <span className="text-3xl font-bold tracking-tight text-gray-900">Sansa</span>
+              <div className="h-12 w-12 rounded-full bg-primary shadow-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">S</span>
+              </div>
+              <span className="text-3xl font-bold tracking-tight text-slate-900">Sansa</span>
             </Link>
-            <h2 className="text-3xl font-bold text-gray-900">Welcome back</h2>
-            <p className="mt-2 text-sm text-gray-600">
+            <h2 className="text-3xl font-bold text-slate-900">Welcome back</h2>
+            <p className="mt-2 text-sm text-slate-600">
               Sign in to your account to continue
             </p>
           </div>
@@ -221,28 +216,25 @@ export default function Login() {
             <div className="grid grid-cols-2 gap-2">
               {demoAccounts.map((account) => {
                 const isSelected = selectedDemo === account.email
-                const colorClasses: Record<string, string> = {
-                  blue: isSelected ? 'bg-blue-50 border-blue-500 ring-2 ring-blue-200' : 'border-gray-200 hover:bg-blue-50 hover:border-blue-400',
-                  purple: isSelected ? 'bg-purple-50 border-purple-500 ring-2 ring-purple-200' : 'border-gray-200 hover:bg-purple-50 hover:border-purple-400',
-                  green: isSelected ? 'bg-green-50 border-green-500 ring-2 ring-green-200' : 'border-gray-200 hover:bg-green-50 hover:border-green-400',
-                  red: isSelected ? 'bg-red-50 border-red-500 ring-2 ring-red-200' : 'border-gray-200 hover:bg-red-50 hover:border-red-400',
-                }
+                const selectedClasses = isSelected 
+                  ? 'bg-primary/5 border-primary ring-2 ring-primary/20' 
+                  : 'border-slate-200 hover:bg-slate-50 hover:border-slate-300'
                 
                 return (
                   <button
                     key={account.email}
                     onClick={() => quickLogin(account.email)}
-                    className={`relative flex items-center gap-2 px-3 py-2.5 text-xs border-2 rounded-lg transition-all font-medium ${colorClasses[account.color]}`}
+                    className={`relative flex items-center gap-2 px-3 py-2.5 text-xs border-2 rounded-lg transition-all font-medium ${selectedClasses}`}
                   >
                     {isSelected && (
                       <div className="absolute top-1 right-1">
-                        <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
                       </div>
                     )}
                     <span className="text-lg">{account.icon}</span>
-                    <span className={isSelected ? 'text-gray-900 font-semibold' : 'text-gray-700'}>{account.role}</span>
+                    <span className={isSelected ? 'text-slate-900 font-semibold' : 'text-slate-700'}>{account.role}</span>
                   </button>
                 )
               })}
@@ -255,30 +247,30 @@ export default function Login() {
       </div>
 
       {/* Right Side - Hero Image/Gradient */}
-      <div className="hidden lg:block lg:flex-1 bg-linear-to-br from-blue-600 via-blue-700 to-purple-800 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-300 rounded-full blur-3xl"></div>
+      <div className="hidden lg:block lg:flex-1 bg-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
         </div>
         
         <div className="relative h-full flex flex-col items-center justify-center text-white p-12">
           <h1 className="text-5xl font-bold mb-6 text-center">Your Multi-Vendor Marketplace</h1>
-          <p className="text-xl text-blue-100 text-center max-w-md mb-8">
+          <p className="text-xl text-slate-300 text-center max-w-md mb-8">
             Shop from multiple vendors, manage your store, or invest in growing businesses.
           </p>
           
           <div className="grid grid-cols-3 gap-6 mt-8">
             <div className="text-center">
               <div className="text-4xl mb-2">🛍️</div>
-              <p className="text-sm text-blue-100">Shop Products</p>
+              <p className="text-sm text-slate-300">Shop Products</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">🏪</div>
-              <p className="text-sm text-blue-100">Sell Online</p>
+              <p className="text-sm text-slate-300">Sell Online</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">💰</div>
-              <p className="text-sm text-blue-100">Invest & Earn</p>
+              <p className="text-sm text-slate-300">Invest & Earn</p>
             </div>
           </div>
         </div>

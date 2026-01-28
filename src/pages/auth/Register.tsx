@@ -102,7 +102,9 @@ export default function Register() {
         {/* Logo & Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="h-12 w-12 rounded-full bg-linear-to-br from-yellow-400 to-yellow-500 shadow-lg" />
+            <div className="h-12 w-12 rounded-full bg-primary shadow-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">S</span>
+            </div>
             <span className="text-3xl font-bold tracking-tight text-gray-900">Sansa</span>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
