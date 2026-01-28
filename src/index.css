@@ -186,9 +186,46 @@ h3 { font-size: clamp(1.125rem, 1.2vw + 0.75rem, 1.375rem); font-weight: 600; }
   }
 }
 
-/* Custom Scrollbar Styles - Subtle and Modern */
+/* Custom Scrollbar Styles - Clean, Auto-hide on scroll only */
 @layer utilities {
-  /* For Webkit browsers (Chrome, Safari, Edge) */
+  /* Global body scrollbar - always visible */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.85 0.005 200) transparent;
+  }
+
+  html::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: oklch(0.85 0.005 200);
+    border-radius: 10px;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.75 0.01 200);
+  }
+
+  html::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  html::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  /* Standard custom scrollbar - hidden by default, shows on scroll only */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -196,29 +233,44 @@ h3 { font-size: clamp(1.125rem, 1.2vw + 0.75rem, 1.375rem); font-weight: 600; }
 
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: oklch(0.85 0.005 200);
+    background: transparent;
     border-radius: 10px;
     transition: background 0.2s ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  /* Show only when actively scrolling */
+  .custom-scrollbar.is-scrolling::-webkit-scrollbar-thumb {
+    background: oklch(0.85 0.005 200);
+  }
+
+  .custom-scrollbar.is-scrolling {
+    scrollbar-color: oklch(0.85 0.005 200) transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: oklch(0.75 0.01 200);
   }
 
-  /* For Firefox */
-  .custom-scrollbar {
+  /* Minimal variant for sidebar - hidden by default, shows on scroll only */
+  .custom-scrollbar-minimal {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.85 0.005 200) transparent;
+    scrollbar-color: transparent transparent;
   }
 
-  /* Even more subtle variant */
   .custom-scrollbar-minimal::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
   }
 
   .custom-scrollbar-minimal::-webkit-scrollbar-track {
@@ -226,16 +278,29 @@ h3 { font-size: clamp(1.125rem, 1.2vw + 0.75rem, 1.375rem); font-weight: 600; }
   }
 
   .custom-scrollbar-minimal::-webkit-scrollbar-thumb {
-    background: oklch(0.9 0.003 200);
+    background: transparent;
     border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+
+  .custom-scrollbar-minimal::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .custom-scrollbar-minimal::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  /* Show only when actively scrolling */
+  .custom-scrollbar-minimal.is-scrolling::-webkit-scrollbar-thumb {
+    background: oklch(0.9 0.003 200);
+  }
+
+  .custom-scrollbar-minimal.is-scrolling {
+    scrollbar-color: oklch(0.9 0.003 200) transparent;
   }
 
   .custom-scrollbar-minimal::-webkit-scrollbar-thumb:hover {
     background: oklch(0.8 0.008 200);
-  }
-
-  .custom-scrollbar-minimal {
-    scrollbar-width: thin;
-    scrollbar-color: oklch(0.9 0.003 200) transparent;
   }
 }
