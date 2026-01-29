@@ -125,7 +125,7 @@ const CategoriesSidebar: React.FC = () => {
               <p className="text-xs font-bold uppercase tracking-wider text-white/90">Special Offer</p>
               <h4 className="mt-1 text-xl font-black text-white">Up to 70% Off</h4>
               <p className="mt-1 text-sm text-white/90">On selected items</p>
-              <button className="mt-3 rounded-lg bg-white px-4 py-2 text-xs font-bold text-orange-600 shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95">
+              <button className="mt-3 rounded-lg bg-white px-4 py-2 text-xs font-bold text-orange-600 shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95 cursor-pointer">
                 Shop Now
               </button>
             </div>

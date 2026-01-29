@@ -156,7 +156,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                   >
                     {showPassword ? (
                       <HiOutlineEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
@@ -194,7 +194,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${getButtonColorClasses()}`}
+              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${getButtonColorClasses()}`}
             >
               {isLoading ? 'Signing in...' : `Continue as ${getSelectedRole()}`}
             </button>
@@ -224,7 +224,7 @@ export default function Login() {
                     key={account.email}
                     type="button"
                     onClick={() => quickLogin(account.email)}
-                    className={`relative p-4 rounded-xl border-2 text-left transition-all ${
+                    className={`relative p-4 rounded-xl border-2 text-left transition-all cursor-pointer ${
                       isSelected
                         ? 'border-primary bg-primary/5 shadow-md'
                         : 'border-gray-200 hover:border-primary/30 hover:bg-gray-50'

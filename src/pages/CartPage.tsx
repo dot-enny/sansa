@@ -154,7 +154,7 @@ const CartPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <button className="w-full bg-primary text-white py-3.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3">
+                <button className="w-full bg-primary text-white py-3.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3 cursor-pointer">
                   Proceed to Checkout
                 </button>
                 

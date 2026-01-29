@@ -32,8 +32,8 @@ export default function WishlistPage() {
               <Link to={`/product/${p.id}`} className="mb-1 font-semibold text-gray-900 hover:underline">{p.title}</Link>
               <div className="mb-3 text-sm text-gray-600">{p.price}</div>
               <div className="mt-auto flex gap-2">
-                <button onClick={() => handleMoveToCart(p)} className="rounded-md bg-green-600 px-3 py-1 text-sm font-semibold text-white hover:bg-green-700">Move to cart</button>
-                <button onClick={() => remove(p.id)} className="rounded-md border px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50">Remove</button>
+                <button onClick={() => handleMoveToCart(p)} className="rounded-md bg-green-600 px-3 py-1 text-sm font-semibold text-white hover:bg-green-700 cursor-pointer">Move to cart</button>
+                <button onClick={() => remove(p.id)} className="rounded-md border px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer">Remove</button>
               </div>
             </div>
           </div>

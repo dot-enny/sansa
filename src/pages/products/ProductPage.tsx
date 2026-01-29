@@ -209,11 +209,11 @@ const ProductPage = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <button className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+              <button className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20 cursor-pointer">
                 <HiShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100 transition-colors">
+              <button className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100 transition-colors cursor-pointer">
                 <HiOutlineHeart className="w-5 h-5" />
                 Save
               </button>

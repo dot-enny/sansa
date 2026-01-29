@@ -54,7 +54,7 @@ export default function EcomHeader() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden"
+          className="flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden cursor-pointer"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <HiOutlineX className="text-2xl" /> : <HiOutlineMenu className="text-2xl" />}
@@ -91,7 +91,7 @@ export default function EcomHeader() {
               className="h-full w-full px-4 text-sm text-gray-900 placeholder:text-gray-400 outline-none"
             />
             <button
-              className="flex h-full w-12 shrink-0 items-center justify-center bg-primary text-white transition hover:bg-primary/90 active:scale-95"
+              className="flex h-full w-12 shrink-0 items-center justify-center bg-primary text-white transition hover:bg-primary/90 active:scale-95 cursor-pointer"
               aria-label="Search"
             >
               <HiOutlineSearch className="text-xl" />
@@ -103,7 +103,7 @@ export default function EcomHeader() {
         <button
           type="button"
           onClick={() => setSearchOpen(!searchOpen)}
-          className="flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden"
+          className="flex items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden cursor-pointer"
           aria-label="Search"
         >
           <HiOutlineSearch className="text-2xl" />
@@ -166,7 +166,7 @@ export default function EcomHeader() {
               className="h-full w-full px-4 text-sm text-gray-900 placeholder:text-gray-400 outline-none"
             />
             <button
-              className="flex h-full w-12 shrink-0 items-center justify-center bg-blue-600 text-white transition active:bg-blue-700"
+              className="flex h-full w-12 shrink-0 items-center justify-center bg-blue-600 text-white transition active:bg-blue-700 cursor-pointer"
               aria-label="Search"
             >
               <HiOutlineSearch className="text-xl" />

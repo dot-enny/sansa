@@ -5,7 +5,7 @@ import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import type { UserRole } from '@/context/AuthContext'
-import {
+import { 
   HiOutlineMail,
   HiOutlineLockClosed,
   HiOutlineUser,
@@ -134,7 +134,7 @@ export default function Register() {
                     key={role.value}
                     type="button"
                     onClick={() => setSelectedRole(role.value)}
-                    className={`relative p-4 rounded-xl border-2 text-left transition-all ${
+                    className={`relative p-4 rounded-xl border-2 text-left transition-all cursor-pointer ${
                       selectedRole === role.value
                         ? 'border-primary bg-primary/5 shadow-md'
                         : 'border-gray-200 hover:border-primary/30 hover:bg-gray-50'
@@ -232,7 +232,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                   >
                     {showPassword ? (
                       <HiOutlineEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />

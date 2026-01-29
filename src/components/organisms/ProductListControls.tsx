@@ -21,7 +21,7 @@ const ProductListControls: React.FC = () => {
           <option>40 Items</option>
         </select>
 
-        <button className="ml-2 rounded border px-2 py-1 text-sm" aria-label="Toggle grid/list">
+        <button className="ml-2 rounded border px-2 py-1 text-sm cursor-pointer" aria-label="Toggle grid/list">
           <HiOutlineViewGrid className="inline-block" />
         </button>
       </div>

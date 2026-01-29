@@ -69,7 +69,7 @@ const RecentReviews = ({ recentReviews }: { recentReviews: Review[] }) => {
             {/* Minimal header */}
             <div className="flex items-center justify-between px-1">
                 <h4 className="font-semibold text-foreground/70">Recent Reviews</h4>
-                <button className="text-xs text-primary font-medium hover:underline">
+                <button className="text-xs text-primary font-medium hover:underline cursor-pointer">
                     View all →
                 </button>
             </div>

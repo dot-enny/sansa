@@ -27,7 +27,7 @@ const HeroBanner: React.FC = () => {
           <p className="mt-3 text-sm md:text-base text-white/90">
             We have prepared the most special discounts for you on the most popular products you need. Don't miss these opportunities…
           </p>
-          <button className="mt-4 inline-block bg-white text-slate-800 font-semibold px-4 py-2 rounded shadow">
+          <button className="mt-4 inline-block bg-white text-slate-800 font-semibold px-4 py-2 rounded shadow cursor-pointer">
             Shop Now
           </button>
         </div>

@@ -176,7 +176,7 @@ const getStatusColor = (status: OrderStatus): string => {
                     />
                   </div>
                   <div className="pt-4">
-                    <button onClick={saveProfile} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                    <button onClick={saveProfile} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20 cursor-pointer">
                       Save Changes
                     </button>
                   </div>
@@ -237,7 +237,7 @@ const getStatusColor = (status: OrderStatus): string => {
                     <h2 className="text-2xl font-bold text-gray-900">Saved Addresses</h2>
                     <p className="mt-1 text-sm text-gray-600">Manage your delivery addresses</p>
                   </div>
-                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 cursor-pointer">
                     <span className="text-lg">+</span>
                     Add Address
                   </button>
@@ -260,10 +260,10 @@ const getStatusColor = (status: OrderStatus): string => {
                           <p className="text-sm text-gray-600">{addr.city}</p>
                         </div>
                         <div className="flex gap-2">
-                          <button className="px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                          <button className="px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer">
                             Edit
                           </button>
-                          <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                          <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer">
                             Delete
                           </button>
                         </div>
@@ -281,7 +281,7 @@ const getStatusColor = (status: OrderStatus): string => {
                     <h2 className="text-2xl font-bold text-gray-900">Payment Methods</h2>
                     <p className="mt-1 text-sm text-gray-600">Manage your saved payment methods</p>
                   </div>
-                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                  <button className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 cursor-pointer">
                     <span className="text-lg">+</span>
                     Add Card
                   </button>
@@ -309,7 +309,7 @@ const getStatusColor = (status: OrderStatus): string => {
                             <p className="text-sm text-gray-600">Expires {pm.exp}</p>
                           </div>
                         </div>
-                        <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                        <button className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer">
                           Remove
                         </button>
                       </div>
@@ -353,7 +353,7 @@ const getStatusColor = (status: OrderStatus): string => {
                   </div>
                   
                   <div className="pt-4 pb-6 border-t border-gray-200">
-                    <button onClick={() => alert('Password changed successfully!')} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                    <button onClick={() => alert('Password changed successfully!')} className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20 cursor-pointer">
                       Change Password
                     </button>
                   </div>
@@ -409,7 +409,7 @@ const getStatusColor = (status: OrderStatus): string => {
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20">
+                  <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-lg shadow-blue-600/20 cursor-pointer">
                     Save Preferences
                   </button>
                 </div>

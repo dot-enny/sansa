@@ -69,7 +69,7 @@ const CreditBanner = ({ trustScore }: { trustScore: number }) => {
                         <button className="px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-semibold 
                                          hover:bg-primary/90 hover:scale-105 
                                          shadow-lg shadow-primary/25
-                                         transition-all duration-200">
+                                         transition-all duration-200 cursor-pointer">
                             Apply for Credit →
                         </button>
                     </div>
@@ -153,7 +153,7 @@ const QuickActions = () => {
                 </div>
             </Link>
 
-            <button className="group relative overflow-hidden text-left">
+            <button className="group relative overflow-hidden text-left cursor-pointer">
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 bg-linear-to-br from-secondary/20 to-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
                 
