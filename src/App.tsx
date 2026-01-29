@@ -5,14 +5,14 @@ import Nav from './components/Nav'
 const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4" style={{ maxWidth: 1200 }}>
+      <header className="bg-white">
+        <div className="container mx-auto" style={{ maxWidth: 1200 }}>
           <Nav />
         </div>
       </header>
 
       <main className="flex-1">
-        <div className="container mx-auto px-4 py-8" style={{ maxWidth: 1200 }}>
+        <div className="container mx-auto py-8" style={{ maxWidth: 1200 }}>
           <Outlet />
         </div>
       </main>
@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <footer className="bg-slate-50 py-6 mt-8">
         <div className="container mx-auto px-4 text-sm text-slate-500" style={{ maxWidth: 1200 }}>
           © {new Date().getFullYear()} Sansa — Multi-vendor demo
-        </div>
+        </div> 
       </footer>
     </div>
   )
