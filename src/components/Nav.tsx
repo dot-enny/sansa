@@ -47,9 +47,9 @@ export default function EcomHeader() {
   }, [mobileMenuOpen])
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/90 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/90 border-b border-gray-200">
       {/* Top bar */}
-      <div className="mx-auto flex w-full max-w-7xl justify-between items-center gap-2 px-4 py-3 lg:gap-4">
+      <div className="mx-auto flex w-full xl:max-w-[1440px] justify-between items-center gap-2 px-4 py-3 lg:gap-4">
         {/* Mobile menu button */}
         <button
           type="button"
@@ -71,7 +71,7 @@ export default function EcomHeader() {
         </Link>
 
         {/* Promo pill - hidden on mobile */}
-        <div className="hidden items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-sm xl:flex">
+        <div className="hidden items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-sm xl:flex min-w-fit">
           <span className="rounded-full bg-white px-2.5 py-0.5 text-xs font-bold text-blue-700 shadow-sm">
             -50%
           </span>
