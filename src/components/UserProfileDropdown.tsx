@@ -113,21 +113,21 @@ export default function UserProfileDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors min-w-0"
       >
-        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-semibold text-sm shrink-0">
           {user.avatar ? (
             <img src={user.avatar} alt={user.name} className="w-full h-full rounded-full object-cover" />
           ) : (
             getInitials(user.name)
           )}
         </div>
-        <div className="hidden md:block text-left">
-          <p className="text-sm font-medium text-gray-900">{user.name}</p>
-          <p className="text-xs text-gray-500">{currentRoleInfo.label}</p>
+        <div className="hidden md:block text-left min-w-0 flex-1">
+          <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
+          <p className="text-xs text-gray-500 truncate">{currentRoleInfo.label}</p>
         </div>
         <HiOutlineChevronDown
-          className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-gray-500 transition-transform shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
