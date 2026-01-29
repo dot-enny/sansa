@@ -82,10 +82,10 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="h-screen flex overflow-hidden">
       {/* Left Side - Login Form */}
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-white py-12">
-        <div className="max-w-md w-full space-y-6">
+      <div className="flex-1 px-4 sm:px-6 lg:px-8 bg-white overflow-y-auto">
+        <div className="max-w-md w-full mx-auto space-y-6 py-12">
           {/* Logo & Header */}
           <div className="text-center">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
