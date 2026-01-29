@@ -17,7 +17,7 @@ const CategoryPage: React.FC = () => {
     : PRODUCTS
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full xl:max-w-[1440px] xl:mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{prettify(slug)}</h1>

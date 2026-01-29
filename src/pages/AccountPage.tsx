@@ -66,7 +66,7 @@ const getStatusColor = (status: OrderStatus): string => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="w-full xl:max-w-[1440px] xl:mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">My Account</h1>
@@ -82,7 +82,7 @@ const getStatusColor = (status: OrderStatus): string => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full xl:max-w-[1440px] xl:mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar Navigation (desktop) */}
           <nav className="w-full md:w-64 flex-shrink-0">

@@ -13,7 +13,7 @@ export default function WishlistPage() {
 
   if (!items.length) {
     return (
-      <div className="mx-auto max-w-4xl p-6">
+      <div className="w-full xl:max-w-[1440px] xl:mx-auto p-6">
         <h2 className="mb-4 text-2xl font-bold">Your wishlist</h2>
         <p className="mb-6 text-gray-600">You haven't saved any items yet.</p>
         <Link to="/shop" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">Continue shopping</Link>
@@ -22,7 +22,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl p-6">
+    <div className="w-full xl:max-w-[1440px] xl:mx-auto p-6">
       <h2 className="mb-6 text-2xl font-bold">Your wishlist</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {items.map((p) => (

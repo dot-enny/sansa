@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="container mx-auto  py-6" style={{ maxWidth: "1200px" }}>
+    <div className="w-full xl:max-w-[1440px] xl:mx-auto py-6 px-4">
       <div className="flex gap-8">
         {/* Mobile: menu button to open categories drawer */}
         <div className="md:hidden">
