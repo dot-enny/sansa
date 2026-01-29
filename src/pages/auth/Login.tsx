@@ -5,7 +5,8 @@ import type { FormEvent } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import type { UserRole } from '@/context/AuthContext'
-import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi'
+import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff, HiOutlineCheckCircle } from 'react-icons/hi'
+import { ShoppingBag, Store, DollarSign, Shield } from 'lucide-react'
 
 export default function Login() {
   // Prefill with demo customer account for easy testing
@@ -54,10 +55,10 @@ export default function Login() {
 
   // Demo accounts for quick testing
   const demoAccounts = [
-    { email: 'customer@sansa.com', role: 'Customer', icon: '🛍️', color: 'blue' },
-    { email: 'vendor@sansa.com', role: 'Vendor', icon: '🏪', color: 'purple' },
-    { email: 'lender@sansa.com', role: 'Lender', icon: '💰', color: 'green' },
-    { email: 'admin@sansa.com', role: 'Admin', icon: '👑', color: 'red' },
+    { email: 'customer@sansa.com', role: 'Customer', icon: ShoppingBag },
+    { email: 'vendor@sansa.com', role: 'Vendor', icon: Store },
+    { email: 'lender@sansa.com', role: 'Lender', icon: DollarSign },
+    { email: 'admin@sansa.com', role: 'Admin', icon: Shield },
   ]
 
   const quickLogin = (demoEmail: string) => {
@@ -212,35 +213,38 @@ export default function Login() {
 
           {/* Demo Accounts */}
           <div className="mt-6 border-t border-gray-200 pt-4">
-            <p className="text-xs text-center font-semibold text-gray-700 mb-3">🎯 Quick Demo Login</p>
-            <div className="grid grid-cols-2 gap-2">
+            <p className="text-sm font-medium text-gray-700 mb-3">Quick Demo Login</p>
+            <div className="grid grid-cols-2 gap-3">
               {demoAccounts.map((account) => {
                 const isSelected = selectedDemo === account.email
-                const selectedClasses = isSelected 
-                  ? 'bg-primary/5 border-primary ring-2 ring-primary/20' 
-                  : 'border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                const Icon = account.icon
                 
                 return (
                   <button
                     key={account.email}
+                    type="button"
                     onClick={() => quickLogin(account.email)}
-                    className={`relative flex items-center gap-2 px-3 py-2.5 text-xs border-2 rounded-lg transition-all font-medium ${selectedClasses}`}
+                    className={`relative p-4 rounded-xl border-2 text-left transition-all ${
+                      isSelected
+                        ? 'border-primary bg-primary/5 shadow-md'
+                        : 'border-gray-200 hover:border-primary/30 hover:bg-gray-50'
+                    }`}
                   >
                     {isSelected && (
-                      <div className="absolute top-1 right-1">
-                        <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                      <div className="absolute top-2 right-2">
+                        <HiOutlineCheckCircle className="w-6 h-6 text-primary" />
                       </div>
                     )}
-                    <span className="text-lg">{account.icon}</span>
-                    <span className={isSelected ? 'text-slate-900 font-semibold' : 'text-slate-700'}>{account.role}</span>
+                    <div className="mb-2">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 text-sm">{account.role}</h3>
                   </button>
                 )
               })}
             </div>
             <p className="text-xs text-center text-gray-500 mt-3">
-              ✨ Click any role to select • All passwords: <code className="bg-gray-100 px-2 py-0.5 rounded">password123</code>
+              Click any role to select • Password: <code className="bg-gray-100 px-2 py-0.5 rounded font-mono">Demo@Pass123!</code>
             </p>
           </div>
         </div>
@@ -253,7 +257,7 @@ export default function Login() {
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
         </div>
         
-        <div className="relative h-full flex flex-col items-center justify-center text-white p-12">
+        <div className="relative h-screen flex flex-col items-center justify-center text-white p-12">
           <h1 className="text-5xl font-bold mb-6 text-center">Your Multi-Vendor Marketplace</h1>
           <p className="text-xl text-slate-300 text-center max-w-md mb-8">
             Shop from multiple vendors, manage your store, or invest in growing businesses.
@@ -261,15 +265,21 @@ export default function Login() {
           
           <div className="grid grid-cols-3 gap-6 mt-8">
             <div className="text-center">
-              <div className="text-4xl mb-2">🛍️</div>
+              <div className="mb-2 flex justify-center">
+                <ShoppingBag className="w-10 h-10 text-primary" />
+              </div>
               <p className="text-sm text-slate-300">Shop Products</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">🏪</div>
+              <div className="mb-2 flex justify-center">
+                <Store className="w-10 h-10 text-primary" />
+              </div>
               <p className="text-sm text-slate-300">Sell Online</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">💰</div>
+              <div className="mb-2 flex justify-center">
+                <DollarSign className="w-10 h-10 text-primary" />
+              </div>
               <p className="text-sm text-slate-300">Invest & Earn</p>
             </div>
           </div>

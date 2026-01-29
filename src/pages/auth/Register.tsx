@@ -13,6 +13,7 @@ import {
   HiOutlineEyeOff,
   HiOutlineCheckCircle,
 } from 'react-icons/hi'
+import { ShoppingBag, Store, DollarSign, Check } from 'lucide-react'
 
 export default function Register() {
   // Prefill form for easy demo
@@ -35,21 +36,21 @@ export default function Register() {
       value: 'customer' as UserRole,
       label: 'Customer',
       description: 'Browse and shop from multiple vendors',
-      icon: '🛍️',
+      icon: ShoppingBag,
       features: ['Shop products', 'Track orders', 'Save wishlist', 'Manage addresses'],
     },
     {
       value: 'vendor' as UserRole,
       label: 'Vendor',
       description: 'Sell your products on the marketplace',
-      icon: '🏪',
+      icon: Store,
       features: ['Create your store', 'List products', 'Manage orders', 'Track sales'],
     },
     {
       value: 'lender' as UserRole,
       label: 'Lender',
       description: 'Invest in vendor growth and earn returns',
-      icon: '💰',
+      icon: DollarSign,
       features: ['Browse opportunities', 'Invest capital', 'Track returns', 'Auto-invest rules'],
     },
   ]
@@ -144,13 +145,15 @@ export default function Register() {
                         <HiOutlineCheckCircle className="w-6 h-6 text-primary" />
                       </div>
                     )}
-                    <div className="text-3xl mb-2">{role.icon}</div>
+                    <div className="mb-3">
+                      <role.icon className="w-8 h-8 text-primary" />
+                    </div>
                     <h3 className="font-semibold text-gray-900 mb-1">{role.label}</h3>
                     <p className="text-xs text-gray-600 mb-3">{role.description}</p>
                     <ul className="space-y-1">
                       {role.features.map((feature, idx) => (
                         <li key={idx} className="text-xs text-gray-500 flex items-center gap-1">
-                          <span className="text-green-500">✓</span>
+                          <Check className="w-3 h-3 text-green-500" />
                           {feature}
                         </li>
                       ))}

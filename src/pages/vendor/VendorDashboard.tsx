@@ -61,7 +61,7 @@ const CreditBanner = ({ trustScore }: { trustScore: number }) => {
                     </div>
                     <div className="flex-1">
                         <h3 className="text-lg font-bold text-foreground mb-1">
-                            You're eligible for credit! 🎉
+                            You're eligible for credit!
                         </h3>
                         <p className="text-sm text-foreground/70 mb-4">
                             Your trust score of <span className="font-bold text-primary">{trustScore}</span> qualifies you for loans up to <span className="font-bold text-foreground">₦5,000,000</span> at competitive rates.

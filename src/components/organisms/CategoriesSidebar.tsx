@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Sparkles } from 'lucide-react'
 import {
   HiOutlineDesktopComputer,
   HiOutlineShoppingBag,
@@ -128,7 +129,9 @@ const CategoriesSidebar: React.FC = () => {
                 Shop Now
               </button>
             </div>
-            <div className="text-5xl opacity-20">🎉</div>
+            <div className="opacity-20">
+              <Sparkles className="w-12 h-12 text-white" />
+            </div>
           </div>
         </div>
       </div>
