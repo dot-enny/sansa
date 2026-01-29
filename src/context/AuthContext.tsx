@@ -38,14 +38,14 @@ const MOCK_USERS: Record<string, User & { password: string }> = {
   'customer@sansa.com': {
     id: 'cust_001',
     email: 'customer@sansa.com',
-    password: 'password123',
+    password: 'Demo@Pass123!',
     name: 'Jane Customer',
     role: 'customer',
   },
   'vendor@sansa.com': {
     id: 'vend_001',
     email: 'vendor@sansa.com',
-    password: 'password123',
+    password: 'Demo@Pass123!',
     name: 'Fashion Hub',
     role: 'vendor',
     vendorId: 'vendor_001',
@@ -54,7 +54,7 @@ const MOCK_USERS: Record<string, User & { password: string }> = {
   'lender@sansa.com': {
     id: 'lend_001',
     email: 'lender@sansa.com',
-    password: 'password123',
+    password: 'Demo@Pass123!',
     name: 'Capital Partners',
     role: 'lender',
     lenderId: 'lender_001',
@@ -63,7 +63,7 @@ const MOCK_USERS: Record<string, User & { password: string }> = {
   'admin@sansa.com': {
     id: 'admin_001',
     email: 'admin@sansa.com',
-    password: 'password123',
+    password: 'Demo@Pass123!',
     name: 'Admin User',
     role: 'admin',
   },

@@ -10,7 +10,7 @@ import { HiOutlineMail, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } fro
 export default function Login() {
   // Prefill with demo customer account for easy testing
   const [email, setEmail] = useState('customer@sansa.com')
-  const [password, setPassword] = useState('password123')
+  const [password, setPassword] = useState('Demo@Pass123!')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -62,7 +62,7 @@ export default function Login() {
 
   const quickLogin = (demoEmail: string) => {
     setEmail(demoEmail)
-    setPassword('password123')
+    setPassword('Demo@Pass123!')
     setSelectedDemo(demoEmail)
   }
 
