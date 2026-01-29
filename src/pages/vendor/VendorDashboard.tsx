@@ -1,5 +1,5 @@
 
-import { TrendingUp, Package } from 'lucide-react'
+import { TrendingUp, Package, ShoppingBag } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useDashboardStats } from '@/hooks/useDashboardStats'
 import { vendorInfo } from '@/data/vendorData'
@@ -81,7 +81,43 @@ const CreditBanner = ({ trustScore }: { trustScore: number }) => {
 
 const QuickActions = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Browse Marketplace - Featured prominently */}
+            <Link
+                to="/shop"
+                className="group relative overflow-hidden"
+            >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-linear-to-br from-secondary/20 to-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                
+                {/* Card */}
+                <div className="relative bg-card/60 backdrop-blur-sm rounded-2xl p-6 
+                              border border-white/20
+                              shadow-lg shadow-secondary/5
+                              hover:shadow-xl hover:shadow-secondary/10
+                              hover:-translate-y-1
+                              transition-all duration-300">
+                    
+                    {/* Icon */}
+                    <div className="relative inline-block mb-3">
+                        <div className="absolute inset-0 bg-secondary/20 rounded-xl blur-md" />
+                        <div className="relative p-3 bg-linear-to-br from-secondary/10 to-secondary/5 rounded-xl text-secondary
+                                      group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                            <ShoppingBag className="w-7 h-7" />
+                        </div>
+                    </div>
+                    
+                    <h3 className="text-lg font-bold text-foreground mb-2">Browse Marketplace</h3>
+                    <p className="text-sm text-muted-foreground/80 mb-4">
+                        Shop products from other vendors
+                    </p>
+                    <span className="text-sm text-secondary font-semibold group-hover:gap-2 inline-flex items-center gap-1 transition-all">
+                        Start shopping 
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                </div>
+            </Link>
+
             <Link
                 to="/dashboard/add-product"
                 className="group relative overflow-hidden"
